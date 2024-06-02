@@ -3,3 +3,6 @@ pyspark
 apache-airflow
 psycopg2-binary
 configparser
+pandas
+matplotlib
+reportlab

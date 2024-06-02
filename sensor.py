@@ -17,11 +17,6 @@ def generate_sensor_data(sensor_id):
     temperature = round(random.uniform(20, 25), 2)  # Temperatura normal entre 20 y 25 grados
     humidity = round(random.uniform(30, 50), 2)     # Humedad normal entre 30 y 50%
 
-    # Generar datos atípicos y extremos
-    if random.random() < 0.01:  # 1% de probabilidad de ser un valor atípico
-        temperature = round(random.uniform(-10, 50), 2)
-        humidity = round(random.uniform(0, 100), 2)
-
     return {
         'sensor_id': sensor_id,
         'timestamp': int(time.time()),

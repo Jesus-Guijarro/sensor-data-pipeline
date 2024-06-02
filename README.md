@@ -162,3 +162,29 @@ password = contraseña
 host = localhost
 port = 5432
 ```
+
+
+## Airflow y Spark Job para procesamiento en lotes
+
+Inicializamos la base de datos de Airflow
+```sh
+airflow db init
+```
+Creamos un usuario admin
+
+```sh
+airflow users create \
+    --username jfgs \
+    --password admin \
+    --firstname Admin \
+    --lastname User \
+    --role Admin \
+    --email jfgs@example.com
+```
+Iniciamos el servidor web y el scheduler de Airflow
+```sh
+airflow webserver --port 8080
+
+airflow scheduler
+```
+
