@@ -128,3 +128,37 @@ spark-submit \
 ```
 Ejecutar una vez kafka y sensor.py esté en ejecución
 
+
+## PostgreSQL
+
+```sh
+psql
+```
+
+```sql
+CREATE DATABASE sensor_data;
+```
+```
+\c sensor_data
+```
+
+```sql
+CREATE TABLE sensor_averages (
+    sensor_id VARCHAR(255),
+    window_start TIMESTAMP,
+    window_end TIMESTAMP,
+    avg_temperature REAL,
+    avg_humidity REAL
+);
+```
+### Crear archivo `config.ini` con los datos de conexión de la base de datos
+
+Por ejemplo:
+```ini
+[database]
+dbname = sensor_data
+user = jesus
+password = contraseña
+host = localhost
+port = 5432
+```

@@ -1,7 +1,9 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, from_json, to_timestamp, window, avg
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType
-import sqlite3
+import psycopg2
+import configparser
+
 
 # Crear la sesión de Spark
 spark = SparkSession.builder \
@@ -34,33 +36,45 @@ sensor_data_df = sensor_data_df.withColumn("timestamp", to_timestamp(col("timest
 
 # Calcular la media de temperatura y humedad en ventanas de 15 minutos
 average_df = sensor_data_df \
-    .withWatermark("timestamp", "15 minutes") \
-    .groupBy(window(col("timestamp"), "15 minutes")) \
+    .withWatermark("timestamp", "1 minute") \
+    .groupBy(window(col("timestamp"), "1 minute"), col("sensor_id")) \
     .agg(avg("temperature").alias("avg_temperature"), avg("humidity").alias("avg_humidity"))
+
+# Leer el archivo de configuración
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+# Obtener los valores de configuración
+db_config = config['database']
+DB_NAME = db_config['dbname']
+DB_USER = db_config['user']
+DB_PASSWORD = db_config['password']
+DB_HOST = db_config['host']
+DB_PORT = db_config['port']
+
 
 # Función para escribir los resultados en la base de datos
 def write_to_db(df, epoch_id):
-    # Conectar a la base de datos (SQLite en este caso)
-    conn = sqlite3.connect('sensor_data.db')
+    # Conectar a la base de datos PostgreSQL
+    conn = psycopg2.connect(
+        dbname=DB_NAME,
+        user=DB_USER,
+        password=DB_PASSWORD,
+        host=DB_HOST,
+        port=DB_PORT
+    )
     cursor = conn.cursor()
-
-    # Crear la tabla si no existe
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS sensor_averages (
-            window_start TEXT,
-            window_end TEXT,
-            avg_temperature REAL,
-            avg_humidity REAL
-        )
-    ''')
 
     # Insertar los datos
     for row in df.collect():
-        cursor.execute("INSERT INTO sensor_averages (window_start, window_end, avg_temperature, avg_humidity) VALUES (?, ?, ?, ?)",
-                       (row['window']['start'], row['window']['end'], row['avg_temperature'], row['avg_humidity']))
+        cursor.execute(
+            "INSERT INTO sensor_averages (sensor_id, window_start, window_end, avg_temperature, avg_humidity) VALUES (%s, %s, %s, %s, %s)",
+            (row['sensor_id'], row['window']['start'], row['window']['end'], row['avg_temperature'], row['avg_humidity'])
+        )
 
     conn.commit()
     conn.close()
+
 
 # Escribir los resultados en la base de datos cada 15 minutos
 query = average_df.writeStream \
