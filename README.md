@@ -49,7 +49,7 @@ export PATH=$PATH:$KAFKA_HOME/bin
 source ~/.bashrc
 ```
 
-### Iniciar ZooKeeper
+### Iniciar ZooKeeper (1º terminal)
 
 Desde un terminal ejecuta el siguiente comando:
 
@@ -57,11 +57,30 @@ Desde un terminal ejecuta el siguiente comando:
 zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties
 
 ```
-### Iniciar Kafka
+### Iniciar Kafka (2º terminal)
 
 ```sh
 kafka-server-start.sh /opt/kafka/config/server.properties
 ```
+
+### Crear un topic en Kafka (sensor-data) (3º terminal)
+```sh
+kafka-topics.sh --create --topic sensor-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+```
+
+Ejecutar `sensor.py`, que es nuestro `producer`.
+
+###  Verificar los datos
+```sh
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sensor-data --from-beginning
+```
+
+### Borrar el topic
+```sh
+kafka-topics.sh --zookeeper localhost:9092 --delete --topic sensor-data
+```
+
+<br>
 
 ## Spark
 
@@ -95,9 +114,17 @@ spark-shell
 ```
 
 
+<br>
 
+
+## Spark -> SQLite
+```sh
+wget https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.0.0/spark-sql-kafka-0-10_2.12-3.0.0.jar
 ```
-
+```sh
+spark-submit \
+  --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 \
+  sensor_data_processor.py
 ```
-
+Ejecutar una vez kafka y sensor.py esté en ejecución
 

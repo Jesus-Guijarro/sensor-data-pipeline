@@ -3,8 +3,12 @@ import time
 from kafka import KafkaProducer
 import json
 
+# Configuración de Kafka
+bootstrap_servers = 'localhost:9092'
+topic = 'sensor-data'
+
 # Configuración del producer de Kafka
-producer = KafkaProducer(bootstrap_servers='localhost:9092', 
+producer = KafkaProducer(bootstrap_servers=bootstrap_servers, 
                          value_serializer=lambda v: json.dumps(v).encode('utf-8'))
 
 # Función para generar datos de sensores
@@ -30,5 +34,5 @@ sensor_count = 50  # Número de sensores
 while True:
     for sensor_id in range(sensor_count):
         data = generate_sensor_data(sensor_id)
-        producer.send('sensor-data', value=data)
+        producer.send(topic, value=data)
     time.sleep(1)  # Enviar datos cada segundo
