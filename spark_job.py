@@ -5,9 +5,15 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
 import configparser
+import os
+
+from datetime import datetime, timedelta
 
 # Ruta al archivo JAR del controlador JDBC de PostgreSQL
 jdbc_jar_path = "postgresql-42.7.3.jar"
+
+#Ruta archivo
+output_dir = os.path.dirname(__file__)
 
 # Crear la sesión de Spark
 spark = SparkSession.builder \
@@ -17,7 +23,8 @@ spark = SparkSession.builder \
 
 # Crear un objeto ConfigParser y leer el archivo config.ini
 config = configparser.ConfigParser()
-config.read('/home/jfgs/Projects/sensor-data-pipeline/config.ini')
+config_path = os.path.join(output_dir, 'config.ini')
+config.read(config_path)
 
 # Leer los valores específicos de la sección [postgresql]
 db_config = config['database']
@@ -49,13 +56,22 @@ plt.xlabel('Time')
 plt.ylabel('Values')
 plt.title('Average Temperature and Humidity Over Time')
 plt.legend()
-plt.savefig('/home/jfgs/Projects/sensor-data-pipeline/report.png')
+output_path_png = os.path.join(output_dir, 'report.png')
+plt.savefig(output_path_png)
+
+now = datetime.now()
+
+pdf_filename = f"report_{now.strftime('%Y-%m-%d')}_{now.strftime('%H-%M-%S')}.pdf"
 
 # Generar un PDF con reportlab
-c = canvas.Canvas("/home/jfgs/Projects/sensor-data-pipeline/report.pdf", pagesize=letter)
-c.drawImage('/home/jfgs/Projects/sensor-data-pipeline/report.png', 50, 500, width=500, height=300)
+output_path_pdf = os.path.join(output_dir, pdf_filename)
+c = canvas.Canvas(output_path_pdf, pagesize=letter)
+c.drawImage(output_path_png, 50, 500, width=500, height=300)
 c.showPage()
 c.save()
+
+# Eliminar el archivo PNG
+os.remove(output_path_png)
 
 # Detener la sesión de Spark
 spark.stop()

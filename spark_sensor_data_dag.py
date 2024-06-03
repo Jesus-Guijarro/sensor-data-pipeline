@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 
+import os
+
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -19,9 +21,17 @@ dag = DAG(
     schedule_interval='@hourly',
 )
 
+# Definir comando bash
+base_dir = "/home/jfgs/Projects/sensor-data-pipeline"
+
+jar_path = os.path.join(base_dir, 'postgresql-42.7.3.jar')
+spark_job_path = os.path.join(base_dir, 'spark_job.py')
+
+bash_command = f'spark-submit --jars {jar_path} {spark_job_path}'
+
 spark_job_sensor = BashOperator(
     task_id='spark_job_sensor',
-    bash_command='spark-submit --jars /home/jfgs/Projects/sensor-data-pipeline/postgresql-42.7.3.jar /home/jfgs/Projects/sensor-data-pipeline/spark_job.py',
+    bash_command=bash_command,
     dag=dag,
 )
 

@@ -4,7 +4,6 @@ from pyspark.sql.types import StructType, StructField, StringType, IntegerType, 
 import psycopg2
 import configparser
 
-
 # Crear la sesión de Spark
 spark = SparkSession.builder \
     .appName("SensorDataProcessing") \
