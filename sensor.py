@@ -3,31 +3,34 @@ import time
 from kafka import KafkaProducer
 import json
 
-# Configuración de Kafka
+# Kafka configuration
 bootstrap_servers = 'localhost:9092'
 topic = 'sensor-data'
 
-# Configuración del producer de Kafka
+# Kafka producer configuration
 producer = KafkaProducer(bootstrap_servers=bootstrap_servers, 
                          value_serializer=lambda v: json.dumps(v).encode('utf-8'))
 
-# Función para generar datos de sensores
+# Function to generate sensor data
 def generate_sensor_data(sensor_id):
-    # Generar datos normales
-    temperature = round(random.uniform(20, 25), 2)  # Temperatura normal entre 20 y 25 grados
-    humidity = round(random.uniform(30, 50), 2)     # Humedad normal entre 30 y 50%
+    # Generate normal data
+    temperature = round(random.uniform(20, 25), 2)  # Normal temperature between 20 and 25 degrees
+    humidity = round(random.uniform(30, 50), 2)     # Normal humidity between 30 and 50%
 
     return {
         'sensor_id': sensor_id,
-        'timestamp': int(time.time()),
+        'timestamp': int(time.time()), # Current time as timestamp
         'temperature': temperature,
         'humidity': humidity
     }
 
-# Enviar datos continuamente
-sensor_count = 50  # Número de sensores
+# Continuously send data
+sensor_count = 50  # Number of sensors
 while True:
     for sensor_id in range(sensor_count):
         data = generate_sensor_data(sensor_id)
+
+        # Send the generated data to the Kafka topic
         producer.send(topic, value=data)
-    time.sleep(1)  # Enviar datos cada segundo
+
+    time.sleep(1)  # Send data every second
