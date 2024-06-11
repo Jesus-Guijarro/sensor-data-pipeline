@@ -77,7 +77,8 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sensor-data 
 
 ### Delete the Topic
 ```sh
-kafka-topics.sh --zookeeper localhost:9092 --delete --topic sensor-data
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic sensor-data
+
 ```
 
 ## Spark
@@ -187,7 +188,7 @@ airflow webserver --port 8080
 airflow scheduler
 ```
 
-## 2. Run all
+## 2. Run project
 
 ### Kafka
 Each command in a separate terminal:
@@ -204,6 +205,7 @@ Create the `sensor-data` topic:
 kafka-topics.sh --create --topic sensor-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
 ```
 
+## Sensor
 Run `sensor.py` from the terminal with the virtual environment `sensorenv` activated:
 ```sh
 python sensor.py
@@ -214,6 +216,7 @@ Verify that Kafka is receiving data from the sensors:
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sensor-data --from-beginning
 ```
 Use Spark Streaming to analyze data in `sensor-data` and send the result to the PostgreSQL database `sensor_data`, table `sensor_averages`:
+
 ```sh
 spark-submit \
   --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 \
@@ -230,11 +233,11 @@ airflow scheduler
 ```
 
 This is the command that the Airflow DAG should execute:
-```
+```sh
 spark-submit --jars postgresql-42.7.3.jar spark_job.py
 ```
 
 o delete the data stored in the `sensor-data` topic:
 ```sh
-kafka-topics.sh --zookeeper localhost:9092 --delete --topic sensor-data
+kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic sensor-data
 ```

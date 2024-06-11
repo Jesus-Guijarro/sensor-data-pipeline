@@ -28,6 +28,7 @@ jar_path = os.path.join(base_dir, 'postgresql-42.7.3.jar')
 spark_job_path = os.path.join(base_dir, 'spark_job.py')
 
 bash_command = f'spark-submit --jars {jar_path} {spark_job_path}'
+
 # Define the BashOperator task to run the Spark job
 spark_job_sensor = BashOperator(
     task_id='spark_job_sensor',
