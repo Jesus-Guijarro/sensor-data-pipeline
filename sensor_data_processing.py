@@ -30,14 +30,24 @@ sensor_data_df = sensor_data_df.selectExpr("CAST(value AS STRING) as json") \
     .select(from_json(col("json"), schema).alias("data")) \
     .select("data.*")
 
-# Convert the timestamp to timestamp format and group in 15-minute windows
+# Convert the timestamp to timestamp format and group in 1 hour windows
 sensor_data_df = sensor_data_df.withColumn("timestamp", to_timestamp(col("timestamp")))
 
-# Calculate the average temperature and humidity in 15-minute windows
-average_df = sensor_data_df \
-    .withWatermark("timestamp", "1 minute") \
-    .groupBy(window(col("timestamp"), "1 minute"), col("sensor_id")) \
-    .agg(avg("temperature").alias("avg_temperature"), avg("humidity").alias("avg_humidity"))
+# Calculate the avg, min and max temperature and humidity in 1 hour windows
+df = sensor_data_df \
+    .withWatermark("timestamp", "1 hour") \
+    .groupBy(
+        window(col("timestamp"), "1 hour").alias("hourly_window"),
+        col("sensor_id")
+    ) \
+    .agg(
+        avg("temperature").alias("avg_temperature"),
+        min("temperature").alias("min_temperature"),
+        max("temperature").alias("max_temperature"),
+        avg("humidity").alias("avg_humidity"),
+        min("humidity").alias("min_humidity"),
+        max("humidity").alias("max_humidity")
+    )
 
 # Read the configuration file
 config = configparser.ConfigParser()
@@ -76,7 +86,7 @@ def write_to_db(df, epoch_id):
 
 
 # Write the results to the database every 15 minutes
-query = average_df.writeStream \
+query = df.writeStream \
     .foreachBatch(write_to_db) \
     .outputMode("update") \
     .start()

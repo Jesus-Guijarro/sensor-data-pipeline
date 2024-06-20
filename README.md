@@ -122,7 +122,7 @@ Run:
 ```sh
 spark-submit \
   --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 \
-  sensor_data_processor.py
+  sensor_data_processing.py
 ```
 (Execute once Kafka and sensor.py are running)
 
@@ -220,21 +220,16 @@ Use Spark Streaming to analyze data in `sensor-data` and send the result to the 
 ```sh
 spark-submit \
   --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 \
-  sensor_data_processor.py
+  sensor_data_processing.py
 ```
 
-### Airflow y Spark
+### Airflow
 In two different terminals:
 ```sh
 airflow webserver --port 8080
 ```
 ```sh
 airflow scheduler
-```
-
-This is the command that the Airflow DAG should execute:
-```sh
-spark-submit --jars postgresql-42.7.3.jar spark_job.py
 ```
 
 o delete the data stored in the `sensor-data` topic:
