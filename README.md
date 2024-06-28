@@ -68,7 +68,7 @@ kafka-server-start.sh /opt/kafka/config/server.properties
 kafka-topics.sh --create --topic sensor-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
 ```
 
-Run `sensor.py`, which is our `producer`.
+Run `producer.py`, which is our `producer`.
 
 ###  Verify the Data
 ```sh
@@ -122,9 +122,9 @@ Run:
 ```sh
 spark-submit \
   --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 \
-  sensor_data_processing.py
+  consumer.py
 ```
-(Execute once Kafka and sensor.py are running)
+(Execute once Kafka and producer.py are running)
 
 
 ## PostgreSQL
@@ -205,9 +205,9 @@ kafka-topics.sh --create --topic sensor-data --bootstrap-server localhost:9092 -
 ```
 
 ## Sensor
-Run `sensor.py` from the terminal with the virtual environment `sensorenv` activated:
+Run `app.py` from the terminal with the virtual environment `sensorenv` activated:
 ```sh
-python sensor.py
+python producer.py
 ```
 
 Verify that Kafka is receiving data from the sensors:
@@ -219,7 +219,7 @@ Use Spark Streaming to analyze data in `sensor-data` and send the result to the 
 ```sh
 spark-submit \
   --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 \
-  sensor_data_processing.py
+  consumer.py
 ```
 
 ### Airflow
@@ -234,4 +234,18 @@ airflow scheduler
 o delete the data stored in the `sensor-data` topic:
 ```sh
 kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic sensor-data
+```
+
+
+## Script start zookeper-server, star kafka-server and create kafka-topic:
+```sh
+gnome-terminal -- bash -c "zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties; exec bash"
+
+sleep 5 
+
+gnome-terminal -- bash -c "kafka-server-start.sh /opt/kafka/config/server.properties; exec bash"
+
+sleep 5
+
+gnome-terminal -- bash -c "kafka-topics.sh --create --topic sensor-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1; exec bash"
 ```

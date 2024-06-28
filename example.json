@@ -2,7 +2,7 @@
     "sensor_id": "1",
     "timestamp": "2024-06-20T12:00:00Z",
     "temperature": {
-        "average": 25.0,
+        "avg": 25.0,
         "min": 24.0,
         "max": 26.0
     }
