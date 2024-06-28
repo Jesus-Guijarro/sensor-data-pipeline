@@ -13,8 +13,7 @@ spark = SparkSession.builder \
 schema = StructType([
     StructField("sensor_id", StringType(), True),
     StructField("timestamp", IntegerType(), True),
-    StructField("temperature", DoubleType(), True),
-    StructField("humidity", DoubleType(), True)
+    StructField("temperature", DoubleType(), True)
 ])
 
 # Read data from Kafka
@@ -33,7 +32,7 @@ sensor_data_df = sensor_data_df.selectExpr("CAST(value AS STRING) as json") \
 # Convert the timestamp to timestamp format and group in 1 hour windows
 sensor_data_df = sensor_data_df.withColumn("timestamp", to_timestamp(col("timestamp")))
 
-# Calculate the avg, min and max temperature and humidity in 1 hour windows
+# Calculate the avg, min and max temperature in 1 hour windows
 df = sensor_data_df \
     .withWatermark("timestamp", "1 hour") \
     .groupBy(
@@ -43,10 +42,14 @@ df = sensor_data_df \
     .agg(
         avg("temperature").alias("avg_temperature"),
         min("temperature").alias("min_temperature"),
-        max("temperature").alias("max_temperature"),
-        avg("humidity").alias("avg_humidity"),
-        min("humidity").alias("min_humidity"),
-        max("humidity").alias("max_humidity")
+        max("temperature").alias("max_temperature")
+    )\
+    .select(
+        col("sensor_id"),
+        col("hourly_window").getField("start").alias("timestamp"),
+        col("avg_temperature").alias("temperature.average"),
+        col("min_temperature").alias("temperature.min"),
+        col("max_temperature").alias("temperature.max")
     )
 
 # Read the configuration file
@@ -77,8 +80,8 @@ def write_to_db(df, epoch_id):
     # Insert the data
     for row in df.collect():
         cursor.execute(
-            "INSERT INTO sensor_averages (sensor_id, window_start, window_end, avg_temperature, avg_humidity) VALUES (%s, %s, %s, %s, %s)",
-            (row['sensor_id'], row['window']['start'], row['window']['end'], row['avg_temperature'], row['avg_humidity'])
+            "INSERT INTO sensor_averages (sensor_id, window_start, window_end, avg_temperature) VALUES (%s, %s, %s, %s, %s)",
+            (row['sensor_id'], row['window']['start'], row['window']['end'], row['avg_temperature'])
         )
 
     conn.commit()

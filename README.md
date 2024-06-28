@@ -146,8 +146,7 @@ CREATE TABLE sensor_averages (
     sensor_id VARCHAR(255),
     window_start TIMESTAMP,
     window_end TIMESTAMP,
-    avg_temperature REAL,
-    avg_humidity REAL
+    avg_temperature REAL
 );
 ```
 ### Create a `config.ini` File with Database Connection Data

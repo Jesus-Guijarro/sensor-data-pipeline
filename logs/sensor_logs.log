@@ -1,0 +1,34 @@
+2024-06-28 04:24:53,334 - WARNING - Sensor ID 23: anomalous extreme temperature detected: 54.65°C
+2024-06-28 04:24:53,336 - WARNING - Sensor ID 24: anomalous extreme temperature detected: -10.25°C
+2024-06-28 04:24:53,342 - INFO - <BrokerConnection node_id=0 host=jfgs:9092 <connecting> [IPv4 ('127.0.1.1', 9092)]>: connecting to jfgs:9092 [('127.0.1.1', 9092) IPv4]
+2024-06-28 04:24:53,348 - INFO - <BrokerConnection node_id=0 host=jfgs:9092 <connecting> [IPv4 ('127.0.1.1', 9092)]>: Connection complete.
+2024-06-28 04:24:53,348 - INFO - <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. 
+2024-06-28 04:24:56,400 - ERROR - Sensor ID 56: disconnected
+2024-06-28 04:24:56,401 - WARNING - Sensor ID 67: anomalous extreme temperature detected: -11.81°C
+2024-06-28 04:24:58,486 - ERROR - Sensor ID 98: disconnected
+2024-06-28 04:24:59,515 - WARNING - Sensor ID 73: anomalous extreme temperature detected: -12.11°C
+2024-06-28 04:24:59,516 - ERROR - Sensor ID 78: disconnected
+2024-06-28 04:24:59,517 - WARNING - Sensor ID 79: anomalous extreme temperature detected: 51.97°C
+2024-06-28 04:25:01,584 - WARNING - Sensor ID 38: anomalous extreme temperature detected: 53.77°C
+2024-06-28 04:25:01,585 - WARNING - Sensor ID 52: anomalous extreme temperature detected: -15.82°C
+2024-06-28 04:25:02,623 - WARNING - Sensor ID 55: anomalous extreme temperature detected: 50.67°C
+2024-06-28 04:25:05,680 - ERROR - Sensor ID 35: disconnected
+2024-06-28 04:25:06,690 - WARNING - Sensor ID 31: anomalous extreme temperature detected: 59.63°C
+2024-06-28 04:25:06,696 - WARNING - Sensor ID 62: anomalous extreme temperature detected: -11.33°C
+2024-06-28 04:25:07,720 - WARNING - Sensor ID 28: anomalous extreme temperature detected: -11.09°C
+2024-06-28 04:25:08,735 - ERROR - Sensor ID 14: disconnected
+2024-06-28 04:25:10,794 - ERROR - Sensor ID 77: disconnected
+2024-06-28 04:25:12,826 - WARNING - Sensor ID 33: anomalous extreme temperature detected: -11.87°C
+2024-06-28 04:25:12,835 - ERROR - Sensor ID 78: disconnected
+2024-06-28 04:25:12,836 - ERROR - Sensor ID 80: disconnected
+2024-06-28 04:25:13,850 - ERROR - Sensor ID 63: disconnected
+2024-06-28 04:25:13,858 - ERROR - Sensor ID 91: disconnected
+2024-06-28 04:25:15,902 - WARNING - Sensor ID 55: anomalous extreme temperature detected: -14.54°C
+2024-06-28 04:25:16,907 - WARNING - Sensor ID 18: anomalous extreme temperature detected: -11.6°C
+2024-06-28 04:25:16,909 - ERROR - Sensor ID 31: disconnected
+2024-06-28 04:25:17,927 - ERROR - Sensor ID 10: disconnected
+2024-06-28 04:25:17,940 - ERROR - Sensor ID 99: disconnected
+2024-06-28 04:25:18,959 - WARNING - Sensor ID 68: anomalous extreme temperature detected: -13.78°C
+2024-06-28 04:25:19,976 - ERROR - Sensor ID 7: disconnected
+2024-06-28 04:25:20,709 - INFO - Closing the Kafka producer with 0 secs timeout.
+2024-06-28 04:25:20,709 - INFO - Proceeding to force close the producer since pending requests could not be completed within timeout 0.
