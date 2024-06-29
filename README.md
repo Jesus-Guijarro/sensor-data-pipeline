@@ -146,7 +146,9 @@ CREATE TABLE sensor_averages (
     sensor_id VARCHAR(255),
     window_start TIMESTAMP,
     window_end TIMESTAMP,
-    avg_temperature REAL
+    avg_temperature REAL,
+    min_temperature REAL,
+    max_temperature REAL
 );
 ```
 ### Create a `config.ini` File with Database Connection Data
@@ -217,9 +219,7 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sensor-data 
 Use Spark Streaming to analyze data in `sensor-data` and send the result to the PostgreSQL database `sensor_data`, table `sensor_averages`:
 
 ```sh
-spark-submit \
-  --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 \
-  consumer.py
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 consumer.py
 ```
 
 ### Airflow

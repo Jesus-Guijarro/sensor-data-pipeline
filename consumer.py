@@ -1,15 +1,15 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, from_json, to_timestamp, window, avg
+from pyspark.sql.functions import col, from_json, to_timestamp, window, avg, max, min
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType
 import psycopg2
 import configparser
 
 # Create the Spark session
 spark = SparkSession.builder \
-    .appName("SensorDataProcessing") \
+    .appName("SensorData") \
     .getOrCreate()
 
-# Define the schema for sensor data
+# Define the schema for sensor-data
 schema = StructType([
     StructField("sensor_id", StringType(), True),
     StructField("timestamp", IntegerType(), True),
@@ -32,24 +32,23 @@ sensor_data_df = sensor_data_df.selectExpr("CAST(value AS STRING) as json") \
 # Convert the timestamp to timestamp format and group in 1 hour windows
 sensor_data_df = sensor_data_df.withColumn("timestamp", to_timestamp(col("timestamp")))
 
-# Calculate the avg, min and max temperature in 1 hour windows
+# Calculate the avg, min and max temperature
 df = sensor_data_df \
-    .withWatermark("timestamp", "1 hour") \
+    .withWatermark("timestamp", "30 minutes") \
     .groupBy(
-        window(col("timestamp"), "1 hour").alias("hourly_window"),
+        window(col("timestamp"), "20 minutes"),
         col("sensor_id")
-    ) \
-    .agg(
-        avg("temperature").alias("avg_temperature"),
-        min("temperature").alias("min_temperature"),
-        max("temperature").alias("max_temperature")
-    )\
-    .select(
+    ).agg(
+        avg(col("temperature")).alias("avg_temperature"),
+        min(col("temperature")).alias("min_temperature"),
+        max(col("temperature")).alias("max_temperature")
+    ).select(
+        col("window.start").alias("window_start"),
+        col("window.end").alias("window_end"),
         col("sensor_id"),
-        col("hourly_window").getField("start").alias("timestamp"),
-        col("avg_temperature").alias("temperature.average"),
-        col("min_temperature").alias("temperature.min"),
-        col("max_temperature").alias("temperature.max")
+        col("avg_temperature"),
+        col("min_temperature"),
+        col("max_temperature")
     )
 
 # Read the configuration file
@@ -64,9 +63,8 @@ DB_PASSWORD = db_config['password']
 DB_HOST = db_config['host']
 DB_PORT = db_config['port']
 
-
 # Function to write the results to the database
-def write_to_db(df, epoch_id):
+def write_to_db(batch_df,batch_id):
     # Connect to the PostgreSQL database
     conn = psycopg2.connect(
         dbname=DB_NAME,
@@ -78,21 +76,21 @@ def write_to_db(df, epoch_id):
     cursor = conn.cursor()
 
     # Insert the data
-    for row in df.collect():
+    for row in batch_df.collect():
         cursor.execute(
-            "INSERT INTO sensor_averages (sensor_id, window_start, window_end, avg_temperature) VALUES (%s, %s, %s, %s, %s)",
-            (row['sensor_id'], row['window']['start'], row['window']['end'], row['avg_temperature'])
-        )
+            "INSERT INTO sensor_averages (sensor_id, window_start, window_end, avg_temperature, min_temperature, max_temperature) VALUES (%s, %s, %s, %s, %s, %s)",
+            (row['sensor_id'], row['window_start'], row['window_end'], row['avg_temperature'], row['min_temperature'], row['max_temperature'])
+    )
 
     conn.commit()
     conn.close()
 
 
-# Write the results to the database every 15 minutes
+# Write the results to the database every 20 minutes
 query = df.writeStream \
     .foreachBatch(write_to_db) \
     .outputMode("update") \
+    .trigger(processingTime="20 minutes") \
     .start()
 
-# Wait for the streaming query to finish
 query.awaitTermination()

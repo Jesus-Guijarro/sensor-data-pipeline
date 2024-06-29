@@ -16,7 +16,7 @@ if __name__ == "__main__":
     logging.basicConfig(filename='logs/sensor_logs.log', level=logging.INFO, 
                         format='%(asctime)s - %(levelname)s - %(message)s')
 
-    number_sensors = 100  # Number of sensors
+    number_sensors = 10  # Number of sensors
     sensors = [Sensor(sensor_id=i) for i in range(1,(number_sensors+1))]
     
     while True:
