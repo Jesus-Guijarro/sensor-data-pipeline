@@ -29,14 +29,14 @@ sensor_data_df = sensor_data_df.selectExpr("CAST(value AS STRING) as json") \
     .select(from_json(col("json"), schema).alias("data")) \
     .select("data.*")
 
-# Convert the timestamp to timestamp format and group in 1 hour windows
+# Convert the timestamp to timestamp format and group in 5 minutes windows
 sensor_data_df = sensor_data_df.withColumn("timestamp", to_timestamp(col("timestamp")))
 
 # Calculate the avg, min and max temperature
 df = sensor_data_df \
-    .withWatermark("timestamp", "30 minutes") \
+    .withWatermark("timestamp", "20 minutes") \
     .groupBy(
-        window(col("timestamp"), "20 minutes"),
+        window(col("timestamp"), "15 minutes"),
         col("sensor_id")
     ).agg(
         avg(col("temperature")).alias("avg_temperature"),
@@ -49,7 +49,7 @@ df = sensor_data_df \
         col("avg_temperature"),
         col("min_temperature"),
         col("max_temperature")
-    )
+    ).dropDuplicates(["sensor_id", "window_start", "window_end"])
 
 # Read the configuration file
 config = configparser.ConfigParser()
@@ -78,19 +78,26 @@ def write_to_db(batch_df,batch_id):
     # Insert the data
     for row in batch_df.collect():
         cursor.execute(
-            "INSERT INTO sensor_averages (sensor_id, window_start, window_end, avg_temperature, min_temperature, max_temperature) VALUES (%s, %s, %s, %s, %s, %s)",
+            """
+            INSERT INTO sensor_temperatures (sensor_id, window_start, window_end, avg_temperature, min_temperature, max_temperature)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            ON CONFLICT (sensor_id, window_start, window_end) DO UPDATE
+            SET avg_temperature = EXCLUDED.avg_temperature,
+                min_temperature = EXCLUDED.min_temperature,
+                max_temperature = EXCLUDED.max_temperature
+            """,
             (row['sensor_id'], row['window_start'], row['window_end'], row['avg_temperature'], row['min_temperature'], row['max_temperature'])
-    )
+        )
 
     conn.commit()
     conn.close()
 
 
-# Write the results to the database every 20 minutes
+# Write the results to the database every 15 minutes
 query = df.writeStream \
     .foreachBatch(write_to_db) \
     .outputMode("update") \
-    .trigger(processingTime="20 minutes") \
+    .trigger(processingTime="15 minutes") \
     .start()
 
 query.awaitTermination()

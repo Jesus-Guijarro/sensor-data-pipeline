@@ -140,16 +140,31 @@ Connect to the database:
 ```
 \c sensor_data
 ```
-Create the table:
+### Create the tables:
 ```sql
-CREATE TABLE sensor_averages (
-    sensor_id VARCHAR(255),
+CREATE TABLE sensor_temperatures (
+    sensor_id INT,
     window_start TIMESTAMP,
     window_end TIMESTAMP,
-    avg_temperature REAL,
-    min_temperature REAL,
-    max_temperature REAL
+    avg_temperature DECIMAL(5,2),
+    min_temperature DECIMAL(5,2),
+    max_temperature DECIMAL(5,2),
+    PRIMARY KEY (sensor_id, window_start, window_end)  -- Cambia el índice único a estas columnas
 );
+```
+
+## Table to store hourly aggregated data from the sensors
+```sql
+CREATE TABLE sensor_temperatures_hourly (
+    sensor_id INT,
+    record_date DATE,
+    record_hour TIME,
+    avg_temperature DECIMAL(5,2),
+    min_temperature DECIMAL(5,2),
+    max_temperature DECIMAL(5,2),
+    PRIMARY KEY (sensor_id, record_date, record_hour)
+);
+
 ```
 ### Create a `config.ini` File with Database Connection Data
 
@@ -231,13 +246,17 @@ airflow webserver --port 8080
 airflow scheduler
 ```
 
-o delete the data stored in the `sensor-data` topic:
+Delete the data stored in the `sensor-data` topic:
 ```sh
 kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic sensor-data
 ```
 
 
 ## Script start zookeper-server, star kafka-server and create kafka-topic:
+```sh
+code start_kafka.sh
+```
+### Commands in .sh:
 ```sh
 gnome-terminal -- bash -c "zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties; exec bash"
 
@@ -249,3 +268,14 @@ sleep 5
 
 gnome-terminal -- bash -c "kafka-topics.sh --create --topic sensor-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1; exec bash"
 ```
+### Execution permissions
+
+```sh
+chmod +x start_kafka.sh
+```
+### Run script:
+```sh
+./start_kafka.sh
+```
+
+# PIPELINE
