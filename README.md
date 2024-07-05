@@ -1,6 +1,23 @@
 # SENSOR DATA PIPELINE
 
-## 1. Installation and Configuration
+## Introduction
+This project focuses on simulating sensor data and processing it through a data pipeline using Kafka, Spark, and Airflow. It serves as a learning exercise to understand the integration and functionalities of these technologies.
+
+## Overview
+The goal of this project is to:
+- Generate simulated sensor data.
+- Use Kafka for real-time data streaming.
+- Process the data using Spark for analytics and transformations.
+- Orchestrate the pipeline with Airflow for scheduling and monitoring.
+
+## Components
+1. Producer (producer.py): simulates sensor data and publishes it to Kafka.
+2. Consumer (consumer.py): reads data from Kafka and processes it.
+3. Spark Job (sensor_etl_job.py): executes Spark jobs to analyze sensor data.
+4. Airflow DAG (sensor_data_dag.py): defines the workflow to automate and monitor the pipeline.
+
+## Installation and Configuration
+
 ### Create the Virtual Environment
 ```sh
 python -m venv sensorenv
@@ -19,19 +36,19 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-## Kafka 
+### Kafka 
 
-### Download
+#### Download Kafka
 ```sh
 wget https://downloads.apache.org/kafka/3.7.0/kafka_2.13-3.7.0.tgz
 ```
 
-### Extract and mov to /opt
+#### Extract and mov to /opt
 ```sh
 tar -xzf kafka_2.13-3.7.0.tgz && mv kafka_2.13-3.7.0 kafka && sudo mv kafka /opt && rm kafka_2.13-3.7.0.tgz
 ```
 
-### Environment Variables
+#### Environment Variables
 
 ```sh
 nano ~/.bashrc
@@ -44,56 +61,25 @@ Add at the end:
 export KAFKA_HOME=/opt/kafka
 export PATH=$PATH:$KAFKA_HOME/bin
 ```
+
 Then run:
 ```sh
 source ~/.bashrc
 ```
 
-### Start ZooKeeper (1st Terminal)
+### Spark
 
-Desde un terminal ejecuta el siguiente comando:
-
-```sh
-zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties
-
-```
-### Start Kafka (2nd Terminal)
-
-```sh
-kafka-server-start.sh /opt/kafka/config/server.properties
-```
-
-### Create a Topic in Kafka (`sensor-data`) (3rd Terminal)
-```sh
-kafka-topics.sh --create --topic sensor-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
-```
-
-Run `producer.py`, which is our `producer`.
-
-###  Verify the Data
-```sh
-kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sensor-data --from-beginning
-```
-
-### Delete the Topic
-```sh
-bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic sensor-data
-
-```
-
-## Spark
-
-### Download
+#### Download
 ```sh
 wget https://dlcdn.apache.org/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz
 ```
 
-### Extract and move spark to /opt
+#### Extract and move spark to /opt
 ```sh
 tar -xzf spark-3.5.1-bin-hadoop3.tgz && mv spark-3.5.1-bin-hadoop3 spark && sudo mv spark /opt && rm spark-3.5.1-bin-hadoop3.tgz
 ```
 
-### SPARK_HOME Variable
+#### SPARK_HOME Variable
 ```sh
 nano ~/.bashrc
 ```
@@ -107,27 +93,21 @@ Then run:
 ```sh
 source ~/.bashrc
 ```
-### Test Spark
+## Test Spark
 ```sh
 spark-shell
 ```
 
 
-## Spark -> SQL
+## Download .jar to connect Spark -> SQL
 ```sh
 wget https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.0.0/spark-sql-kafka-0-10_2.12-3.0.0.jar
 ```
 
-Run:
-```sh
-spark-submit \
-  --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 \
-  consumer.py
-```
-(Execute once Kafka and producer.py are running)
 
 
-## PostgreSQL
+
+### PostgreSQL
 Access PostgreSQL:
 ```sh
 psql
@@ -153,7 +133,7 @@ CREATE TABLE sensor_temperatures (
 );
 ```
 
-## Table to store hourly aggregated data from the sensors
+Table to store hourly aggregated data from the sensors:
 ```sql
 CREATE TABLE sensor_temperatures_hourly (
     sensor_id INT,
@@ -166,19 +146,19 @@ CREATE TABLE sensor_temperatures_hourly (
 );
 
 ```
-### Create a `config.ini` File with Database Connection Data
+#### Create a `config.ini` File with Database Connection Data
 
 For example:
 ```ini
 [database]
 dbname = sensor_data
 user = jesus
-password = contraseña
+password =  ***
 host = localhost
 port = 5432
 ```
 
-## Airflow and Spark Job for Batch Processing
+## Airflow
 
 Initialize the Airflow database:
 ```sh
@@ -195,7 +175,7 @@ airflow users create \
     --role Admin \
     --email jfgs@example.com
 ```
-Start the Airflow web server and scheduler:
+Start the Airflow web server and scheduler to test if everything is working:
 ```sh
 airflow webserver --port 8080
 ```
@@ -203,8 +183,10 @@ airflow webserver --port 8080
 ```sh
 airflow scheduler
 ```
+Shutdown the web server and scheduler
 
-## 2. Run project
+
+## Run project
 
 ### Kafka
 Each command in a separate terminal:
@@ -222,7 +204,7 @@ kafka-topics.sh --create --topic sensor-data --bootstrap-server localhost:9092 -
 ```
 
 ## Sensor
-Run `app.py` from the terminal with the virtual environment `sensorenv` activated:
+Run `producer.py` from the terminal with the virtual environment `sensorenv` activated:
 ```sh
 python producer.py
 ```
@@ -234,10 +216,15 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sensor-data 
 Use Spark Streaming to analyze data in `sensor-data` and send the result to the PostgreSQL database `sensor_data`, table `sensor_averages`:
 
 ```sh
-spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 consumer.py
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 --jars resources/spark-sql-kafka-0-10_2.12-3.0.0.jar consumer.py
 ```
 
-### Airflow
+## Airflow
+Copy file `sensor_data_dag.py` in /home/airflow/dags/
+```sh
+cp sensor_data_dag.py /home/{your_user}/airflow/dags/
+```
+
 In two different terminals:
 ```sh
 airflow webserver --port 8080
@@ -246,30 +233,18 @@ airflow webserver --port 8080
 airflow scheduler
 ```
 
-Delete the data stored in the `sensor-data` topic:
+Check http://localhost:8080/
+
+
+If you want to delete the data stored in the `sensor-data` topic:
 ```sh
 kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic sensor-data
 ```
 
+## Extra
+### Run script to start Kafka and Zookeper servers and to create Kafka topic
 
-## Script start zookeper-server, star kafka-server and create kafka-topic:
-```sh
-code start_kafka.sh
-```
-### Commands in .sh:
-```sh
-gnome-terminal -- bash -c "zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties; exec bash"
-
-sleep 5 
-
-gnome-terminal -- bash -c "kafka-server-start.sh /opt/kafka/config/server.properties; exec bash"
-
-sleep 5
-
-gnome-terminal -- bash -c "kafka-topics.sh --create --topic sensor-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1; exec bash"
-```
-### Execution permissions
-
+Execution permissions
 ```sh
 chmod +x start_kafka.sh
 ```
@@ -277,5 +252,3 @@ chmod +x start_kafka.sh
 ```sh
 ./start_kafka.sh
 ```
-
-# PIPELINE

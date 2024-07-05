@@ -29,7 +29,7 @@ sensor_data_df = sensor_data_df.selectExpr("CAST(value AS STRING) as json") \
     .select(from_json(col("json"), schema).alias("data")) \
     .select("data.*")
 
-# Convert the timestamp to timestamp format and group in 5 minutes windows
+# Convert the timestamp to timestamp format and group in 15 minutes windows
 sensor_data_df = sensor_data_df.withColumn("timestamp", to_timestamp(col("timestamp")))
 
 # Calculate the avg, min and max temperature
@@ -71,7 +71,6 @@ def write_to_db(batch_df,batch_id):
 
     conn.commit()
     conn.close()
-
 
 # Write the results to the database every 15 minutes
 query = df.writeStream \

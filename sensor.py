@@ -8,8 +8,11 @@ class Sensor:
     def __init__(self, sensor_id):
         self.sensor_id = sensor_id
         self.anomaly_probability = random.uniform(0.01, 0.05)
-
+    
     def generate_normal_data(self):
+        """
+        Function to generate a normal temperature value
+        """
         now = datetime.datetime.now()
         hour = now.hour
         month = now.month
@@ -35,7 +38,7 @@ class Sensor:
             if hour < 6:
                 mean_temp = base_temp - (temp_variation_day * (6 - hour) / 6)
             else:
-                mean_temp = base_temp - (temp_variation_day * (hour - 14) / 6)
+                mean_temp = base_temp - (temp_variation_day * (hour - 15) / 6)
 
         std_dev_temp = 2  # Fixed standard deviation for simplification
 
@@ -43,8 +46,11 @@ class Sensor:
         temperature = np.random.normal(mean_temp, std_dev_temp)
         
         return temperature
-
+    
     def generate_sensor_data(self):
+        """
+        Function for generating sensor data
+        """
         random_value = random.random()
 
         # Check if an anomaly should be generated

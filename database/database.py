@@ -3,10 +3,14 @@ import os
 import psycopg2
 
 def read_db_config():
+    """
+    Reads database configuration parameters from config.ini file
+    """
     config = configparser.ConfigParser()
     config_path = os.path.join(os.path.dirname(__file__), '..', 'config.ini')
     config.read(config_path)
 
+    # Extract database configuration parameters
     db_config = config['database']
 
     return {
@@ -18,6 +22,9 @@ def read_db_config():
     }
 
 def get_connection():
+    """
+    Establishes a connection to the PostgreSQL database
+    """
     config = read_db_config()
 
     connection = psycopg2.connect(
@@ -33,6 +40,9 @@ def get_connection():
     return connection, cursor
     
 def close_connection(connection, cursor):
+    """
+    Closes the database connection and cursor.
+    """
     if cursor:
         cursor.close()
     if connection:
