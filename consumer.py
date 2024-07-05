@@ -1,8 +1,8 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, from_json, to_timestamp, window, avg, max, min
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType
-import psycopg2
-import configparser
+
+import database.database as db
 
 # Create the Spark session
 spark = SparkSession.builder \
@@ -51,30 +51,10 @@ df = sensor_data_df \
         col("max_temperature")
     ).dropDuplicates(["sensor_id", "window_start", "window_end"])
 
-# Read the configuration file
-config = configparser.ConfigParser()
-config.read('config.ini')
-
-# Get the configuration values
-db_config = config['database']
-DB_NAME = db_config['dbname']
-DB_USER = db_config['user']
-DB_PASSWORD = db_config['password']
-DB_HOST = db_config['host']
-DB_PORT = db_config['port']
-
 # Function to write the results to the database
 def write_to_db(batch_df,batch_id):
-    # Connect to the PostgreSQL database
-    conn = psycopg2.connect(
-        dbname=DB_NAME,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        host=DB_HOST,
-        port=DB_PORT
-    )
-    cursor = conn.cursor()
 
+    conn, cursor = db.get_connection()
     # Insert the data
     for row in batch_df.collect():
         cursor.execute(

@@ -1,26 +1,13 @@
 import psycopg2
 import configparser
+import os
+import json
+from datetime import datetime
 
-# Read the configuration file
-config = configparser.ConfigParser()
-config.read('config.ini')
+import database.database as db
 
-# Get the configuration values
-db_config = config['database']
-DB_NAME = db_config['dbname']
-DB_USER = db_config['user']
-DB_PASSWORD = db_config['password']
-DB_HOST = db_config['host']
-DB_PORT = db_config['port']
 
-conn = psycopg2.connect(
-        dbname=DB_NAME,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        host=DB_HOST,
-        port=DB_PORT
-    )
-cursor = conn.cursor()
+conn, cursor = db.get_connection()
 
 cursor.execute("""
     SELECT sensor_id, window_start, avg_temperature, min_temperature, max_temperature 
@@ -68,6 +55,51 @@ insert_query = """
 cursor.executemany(insert_query, to_insert)
 
 conn.commit()
+
+# Generate JSON
+
+query = '''
+SELECT 
+    record_date,
+    AVG(avg_temperature) as tmed,
+    MIN(min_temperature) as tmin,
+    MAX(max_temperature) as tmax,
+    (SELECT record_hour FROM sensor_temperatures_hourly WHERE record_date = a.record_date AND min_temperature = MIN(a.min_temperature) LIMIT 1) as horatmin,
+    (SELECT record_hour FROM sensor_temperatures_hourly WHERE record_date = a.record_date AND max_temperature = MAX(a.max_temperature) LIMIT 1) as horatmax
+FROM sensor_temperatures_hourly a
+GROUP BY record_date
+'''
+
+cursor.execute(query)
+rows = cursor.fetchall()
+
+# Constant values
+indicativo = "8025"
+nombre = "ALACANT/ALICANTE"
+provincia = "ALACANT/ALICANTE"
+
+data_list = []
+for row in rows:
+    record = {
+        "fecha": row[0].strftime('%Y-%m-%d'),
+        "indicativo": indicativo,
+        "nombre": nombre,
+        "provincia": provincia,
+        "tmed": f"{row[1]:.1f}",
+        "tmin": f"{row[2]:.1f}",
+        "horatmin": row[4].strftime('%H:%M'),
+        "tmax": f"{row[3]:.1f}",
+        "horatmax": row[5].strftime('%H:%M')
+    }
+    data_list.append(record)
+
+today = datetime.now().strftime('%Y-%m-%d')
+
+os.makedirs('data', exist_ok=True)
+
+json_file_path = f"data/{today}.json"
+with open(json_file_path, 'w', encoding='utf-8') as f:
+    json.dump(data_list, f, ensure_ascii=False, indent=4)
 
 cursor.close()
 conn.close()

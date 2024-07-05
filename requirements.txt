@@ -3,3 +3,4 @@ pyspark
 apache-airflow
 psycopg2-binary
 configparser
+numpy
