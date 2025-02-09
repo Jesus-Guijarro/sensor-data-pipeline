@@ -1,4 +1,4 @@
-kafka-python
+kafka-python-ng
 pyspark
 apache-airflow
 psycopg2-binary

@@ -53,7 +53,6 @@ df = sensor_data_df \
 
 # Function to write the results to the database
 def write_to_db(batch_df,batch_id):
-
     conn, cursor = db.get_connection()
     # Insert the data
     for row in batch_df.collect():

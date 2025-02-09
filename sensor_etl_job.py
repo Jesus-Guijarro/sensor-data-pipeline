@@ -78,9 +78,9 @@ cursor.execute(query)
 rows = cursor.fetchall()
 
 # Constant values for JSON data
-indicativo = "8025"
-nombre = "ALACANT/ALICANTE"
-provincia = "ALACANT/ALICANTE"
+indicativo = "8025"             #station code
+nombre = "ALACANT/ALICANTE"     #station name
+provincia = "ALICANTE"          #province name
 
 data_list = []
 for row in rows:
@@ -92,8 +92,8 @@ for row in rows:
         "provincia": provincia,
         "tmed": f"{row[1]:.1f}",
         "tmin": f"{row[2]:.1f}",
-        "horatmin": row[4].strftime('%H:%M'),
         "tmax": f"{row[3]:.1f}",
+        "horatmin": row[4].strftime('%H:%M'),
         "horatmax": row[5].strftime('%H:%M')
     }
     data_list.append(record)
@@ -105,7 +105,7 @@ today = datetime.now().strftime('%Y-%m-%d')
 os.makedirs('data', exist_ok=True)
 
 # Write JSON data to a file
-json_file_path = f"data/{today}.json"
+json_file_path = f"data/{today}_{indicativo}.json"
 with open(json_file_path, 'w', encoding='utf-8') as f:
     json.dump(data_list, f, ensure_ascii=False, indent=4)
 

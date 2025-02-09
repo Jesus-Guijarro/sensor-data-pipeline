@@ -20,12 +20,12 @@ The goal of this project is to:
 
 ### Create the Virtual Environment
 ```sh
-python -m venv sensorenv
+python3 -m venv sensor-venv
 ```
 
 ### Activate the virtual environment
 ```sh
-source sensorenv/bin/activate
+source sensor-venv/bin/activate
 ```
 ### Upgrade pip (optional but recommended)
 ```sh
@@ -98,28 +98,27 @@ source ~/.bashrc
 spark-shell
 ```
 
-
 ## Download .jar to connect Spark -> SQL
 ```sh
 wget https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.0.0/spark-sql-kafka-0-10_2.12-3.0.0.jar
 ```
-
-
-
 
 ### PostgreSQL
 Access PostgreSQL:
 ```sh
 psql
 ```
+
 Create the database:
 ```sql
 CREATE DATABASE sensor_data;
 ```
+
 Connect to the database:
 ```
 \c sensor_data
 ```
+
 ### Create the tables:
 ```sql
 CREATE TABLE sensor_temperatures (
@@ -152,7 +151,7 @@ For example:
 ```ini
 [database]
 dbname = sensor_data
-user = jesus
+user = postgres
 password =  ***
 host = localhost
 port = 5432
@@ -173,7 +172,7 @@ airflow users create \
     --firstname Admin \
     --lastname User \
     --role Admin \
-    --email jfgs@example.com
+    --email jfgs@sensor-data.com
 ```
 Start the Airflow web server and scheduler to test if everything is working:
 ```sh
@@ -203,8 +202,14 @@ Create the `sensor-data` topic:
 kafka-topics.sh --create --topic sensor-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
 ```
 
+Create the `log-data` topic:
+
+```sh
+kafka-topics.sh --create --topic log-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+```
+
 ## Sensor
-Run `producer.py` from the terminal with the virtual environment `sensorenv` activated:
+Run `producer.py` from the terminal with the virtual environment `sensor-env` activated:
 ```sh
 python producer.py
 ```
@@ -213,10 +218,19 @@ Verify that Kafka is receiving data from the sensors:
 ```sh
 kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic sensor-data --from-beginning
 ```
+```sh
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic log-data --from-beginning
+```
+
 Use Spark Streaming to analyze data in `sensor-data` and send the result to the PostgreSQL database `sensor_data`, table `sensor_averages`:
 
 ```sh
-spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 --jars resources/spark-sql-kafka-0-10_2.12-3.0.0.jar consumer.py
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 --jars resources/spark-sql-kafka-0-10_2.12-3.0.0.jar sensor_consumer.py
+```
+
+In other terminal:
+```sh
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 --jars resources/spark-sql-kafka-0-10_2.12-3.0.0.jar log_consumer.py
 ```
 
 ## Airflow
@@ -242,7 +256,11 @@ kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic sensor-data
 ```
 
 ## Extra
-### Run script to start Kafka and Zookeper servers and to create Kafka topic
+### Run script to start Kafka, Zookeper and to create the Kafka topic `sensor-data`
+
+```sh
+cd resources
+```
 
 Execution permissions
 ```sh
