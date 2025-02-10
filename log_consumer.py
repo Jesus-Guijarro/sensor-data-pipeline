@@ -15,7 +15,7 @@ def consume_logs():
     print("Consuming topic logs...")
     for message in consumer:
         log_entry = message.value
-        print(f"[{log_entry['level']}] Sensor {log_entry['sensor_id']}: {log_entry['message']}")
+        print(f"[{log_entry['level']}] {log_entry['message']}")
 
 if __name__ == "__main__":
     consume_logs()

@@ -11,10 +11,10 @@ The goal of this project is to:
 - Orchestrate the pipeline with Airflow for scheduling and monitoring.
 
 ## Components
-1. Producer (producer.py): simulates sensor data and publishes it to Kafka.
-2. Consumer (consumer.py): reads data from Kafka and processes it.
-3. Spark Job (sensor_etl_job.py): executes Spark jobs to analyze sensor data.
-4. Airflow DAG (sensor_data_dag.py): defines the workflow to automate and monitor the pipeline.
+1. Producer (`producer.py`): simulates sensor data and publishes it to Kafka.
+2. Consumers (`sensor_consumer.py` and `log_consumer.py`): reads data from Kafka and processes it.
+3. Spark Job (`sensor_etl_job.py`): executes Spark jobs to analyze sensor data.
+4. Airflow DAG (`sensor_data_dag.py`): defines the workflow to automate and monitor the pipeline.
 
 ## Installation and Configuration
 
@@ -230,7 +230,7 @@ spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 --jars 
 
 In other terminal:
 ```sh
-spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 --jars resources/spark-sql-kafka-0-10_2.12-3.0.0.jar log_consumer.py
+python log_consumer.py
 ```
 
 ## Airflow
@@ -250,9 +250,11 @@ airflow scheduler
 Check http://localhost:8080/
 
 
-If you want to delete the data stored in the `sensor-data` topic:
+If you want to delete the data stored in the `sensor-data` and `log-data` topics:
 ```sh
 kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic sensor-data
+
+kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic log-data
 ```
 
 ## Extra

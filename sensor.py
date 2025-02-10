@@ -1,12 +1,14 @@
 import random
 import time
 import datetime
+import logging
 import numpy as np
 
 class Sensor:
     def __init__(self, sensor_id):
         self.sensor_id = sensor_id
-        self.error_probability = random.uniform(0.01, 0.05) # Some sensors have a higher probability of disconnect or generate a extreme value
+        self.anomaly_type = random.choice(['extreme_value', 'disconnect'])
+        self.error_probability = random.uniform(0.001, 0.01) # Some sensors have a higher probability of disconnect or generate a extreme value
     
     def generate_normal_data(self):
         """
@@ -51,11 +53,13 @@ class Sensor:
         if random_value < self.error_probability:
             # Generate anomalous data
             anomaly_type = random.choice(['extreme_value', 'disconnect'])
-            if anomaly_type == 'extreme_value':
+            if self.anomaly_type == 'extreme_value':
                 temperature = round(random.choice([random.uniform(-20, -10), random.uniform(50, 60)]), 2)
+                logging.warning(f'Sensor ID {self.sensor_id}: anomalous extreme temperature detected: {temperature}°C')
             # Sensor "Disconnection"
-            elif anomaly_type == 'disconnect':
+            elif self.anomaly_type == 'disconnect':
                 temperature = None
+                logging.error(f'Sensor ID {self.sensor_id}: disconnected')
         else:
             temperature = self.generate_normal_data()
 

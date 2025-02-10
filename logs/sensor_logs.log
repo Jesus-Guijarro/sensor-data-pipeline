@@ -1,0 +1,432 @@
+2025-02-10 05:43:10,620 - INFO - <BrokerConnection node_id=0 host=jesus-vmware:9092 <connecting> [IPv4 ('127.0.1.1', 9092)]>: connecting to jesus-vmware:9092 [('127.0.1.1', 9092) IPv4]
+2025-02-10 05:43:10,620 - INFO - <BrokerConnection node_id=0 host=jesus-vmware:9092 <connecting> [IPv4 ('127.0.1.1', 9092)]>: Connection complete.
+2025-02-10 05:43:10,620 - INFO - <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. 
+2025-02-10 05:43:11,621 - WARNING - Sensor ID 7: anomalous extreme temperature detected: -10.95°C
+2025-02-10 05:43:12,628 - WARNING - Sensor ID 8: anomalous extreme temperature detected: 50.11°C
+2025-02-10 05:43:14,634 - WARNING - Sensor ID 13: anomalous extreme temperature detected: 52.42°C
+2025-02-10 05:43:19,645 - WARNING - Sensor ID 13: anomalous extreme temperature detected: -10.5°C
+2025-02-10 05:43:19,646 - ERROR - Sensor ID 17: disconnected
+2025-02-10 05:43:19,647 - WARNING - Sensor ID 18: anomalous extreme temperature detected: 51.28°C
+2025-02-10 05:43:21,652 - WARNING - Sensor ID 14: anomalous extreme temperature detected: -11.01°C
+2025-02-10 05:43:22,654 - ERROR - Sensor ID 9: disconnected
+2025-02-10 05:43:22,655 - ERROR - Sensor ID 12: disconnected
+2025-02-10 05:43:22,655 - WARNING - Sensor ID 15: anomalous extreme temperature detected: 50.47°C
+2025-02-10 05:43:27,664 - ERROR - Sensor ID 7: disconnected
+2025-02-10 05:43:29,670 - WARNING - Sensor ID 5: anomalous extreme temperature detected: 51.64°C
+2025-02-10 05:43:32,676 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:43:34,682 - WARNING - Sensor ID 12: anomalous extreme temperature detected: -14.08°C
+2025-02-10 05:43:37,692 - ERROR - Sensor ID 10: disconnected
+2025-02-10 05:43:39,701 - ERROR - Sensor ID 7: disconnected
+2025-02-10 05:43:39,701 - ERROR - Sensor ID 8: disconnected
+2025-02-10 05:43:39,703 - WARNING - Sensor ID 13: anomalous extreme temperature detected: -14.79°C
+2025-02-10 05:43:41,710 - ERROR - Sensor ID 17: disconnected
+2025-02-10 05:43:42,713 - WARNING - Sensor ID 11: anomalous extreme temperature detected: -16.61°C
+2025-02-10 05:43:43,721 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:43:44,725 - WARNING - Sensor ID 19: anomalous extreme temperature detected: -11.69°C
+2025-02-10 05:43:46,732 - ERROR - Sensor ID 16: disconnected
+2025-02-10 05:43:49,737 - WARNING - Sensor ID 1: anomalous extreme temperature detected: -18.68°C
+2025-02-10 05:43:49,738 - WARNING - Sensor ID 10: anomalous extreme temperature detected: 52.8°C
+2025-02-10 05:43:51,742 - ERROR - Sensor ID 14: disconnected
+2025-02-10 05:43:52,745 - WARNING - Sensor ID 18: anomalous extreme temperature detected: -10.59°C
+2025-02-10 05:43:54,747 - ERROR - Sensor ID 8: disconnected
+2025-02-10 05:43:55,748 - WARNING - Sensor ID 12: anomalous extreme temperature detected: 55.35°C
+2025-02-10 05:43:55,749 - WARNING - Sensor ID 20: anomalous extreme temperature detected: 57.15°C
+2025-02-10 05:43:56,749 - ERROR - Sensor ID 8: disconnected
+2025-02-10 05:43:57,750 - ERROR - Sensor ID 9: disconnected
+2025-02-10 05:43:59,752 - ERROR - Sensor ID 6: disconnected
+2025-02-10 05:44:00,754 - WARNING - Sensor ID 14: anomalous extreme temperature detected: 55.87°C
+2025-02-10 05:44:03,759 - WARNING - Sensor ID 7: anomalous extreme temperature detected: -15.23°C
+2025-02-10 05:44:07,766 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:44:07,767 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:44:12,774 - ERROR - Sensor ID 8: disconnected
+2025-02-10 05:44:15,778 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:44:16,781 - WARNING - Sensor ID 14: anomalous extreme temperature detected: -10.79°C
+2025-02-10 05:44:16,781 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:44:18,783 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:44:22,787 - ERROR - Sensor ID 10: disconnected
+2025-02-10 05:44:23,789 - WARNING - Sensor ID 18: anomalous extreme temperature detected: -10.19°C
+2025-02-10 05:44:31,799 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:44:36,804 - ERROR - Sensor ID 11: disconnected
+2025-02-10 05:44:38,805 - ERROR - Sensor ID 17: disconnected
+2025-02-10 05:44:38,806 - WARNING - Sensor ID 18: anomalous extreme temperature detected: 53.7°C
+2025-02-10 05:44:39,809 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:44:48,822 - WARNING - Sensor ID 5: anomalous extreme temperature detected: 51.2°C
+2025-02-10 05:44:48,822 - WARNING - Sensor ID 7: anomalous extreme temperature detected: -17.46°C
+2025-02-10 05:44:50,824 - WARNING - Sensor ID 5: anomalous extreme temperature detected: -17.16°C
+2025-02-10 05:44:51,825 - WARNING - Sensor ID 7: anomalous extreme temperature detected: -18.62°C
+2025-02-10 05:44:52,828 - ERROR - Sensor ID 16: disconnected
+2025-02-10 05:44:53,841 - WARNING - Sensor ID 15: anomalous extreme temperature detected: -16.82°C
+2025-02-10 05:44:54,844 - WARNING - Sensor ID 5: anomalous extreme temperature detected: 59.68°C
+2025-02-10 05:44:54,849 - WARNING - Sensor ID 20: anomalous extreme temperature detected: 55.12°C
+2025-02-10 05:44:58,870 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:44:59,873 - ERROR - Sensor ID 12: disconnected
+2025-02-10 05:45:01,887 - ERROR - Sensor ID 10: disconnected
+2025-02-10 05:45:03,895 - WARNING - Sensor ID 14: anomalous extreme temperature detected: -19.48°C
+2025-02-10 05:45:05,907 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:45:05,907 - WARNING - Sensor ID 19: anomalous extreme temperature detected: 54.05°C
+2025-02-10 05:45:06,911 - WARNING - Sensor ID 2: anomalous extreme temperature detected: 50.54°C
+2025-02-10 05:45:11,934 - ERROR - Sensor ID 5: disconnected
+2025-02-10 05:45:12,947 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:45:14,974 - WARNING - Sensor ID 14: anomalous extreme temperature detected: -12.44°C
+2025-02-10 05:45:15,980 - WARNING - Sensor ID 19: anomalous extreme temperature detected: 50.72°C
+2025-02-10 05:45:16,981 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:45:17,986 - ERROR - Sensor ID 13: disconnected
+2025-02-10 05:45:17,987 - WARNING - Sensor ID 17: anomalous extreme temperature detected: 51.38°C
+2025-02-10 05:45:18,991 - WARNING - Sensor ID 4: anomalous extreme temperature detected: -11.65°C
+2025-02-10 05:45:20,002 - WARNING - Sensor ID 8: anomalous extreme temperature detected: 51.7°C
+2025-02-10 05:45:21,007 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:45:22,013 - WARNING - Sensor ID 20: anomalous extreme temperature detected: -17.61°C
+2025-02-10 05:45:25,022 - ERROR - Sensor ID 12: disconnected
+2025-02-10 05:45:27,029 - ERROR - Sensor ID 16: disconnected
+2025-02-10 05:45:29,033 - WARNING - Sensor ID 20: anomalous extreme temperature detected: -15.93°C
+2025-02-10 05:45:30,036 - ERROR - Sensor ID 20: disconnected
+2025-02-10 05:45:31,037 - WARNING - Sensor ID 8: anomalous extreme temperature detected: 56.89°C
+2025-02-10 05:45:37,047 - WARNING - Sensor ID 7: anomalous extreme temperature detected: 59.12°C
+2025-02-10 05:45:38,050 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:45:42,063 - ERROR - Sensor ID 9: disconnected
+2025-02-10 05:45:47,073 - ERROR - Sensor ID 13: disconnected
+2025-02-10 05:45:49,076 - ERROR - Sensor ID 6: disconnected
+2025-02-10 05:45:53,083 - ERROR - Sensor ID 7: disconnected
+2025-02-10 05:45:54,087 - WARNING - Sensor ID 15: anomalous extreme temperature detected: 57.65°C
+2025-02-10 05:45:57,093 - ERROR - Sensor ID 5: disconnected
+2025-02-10 05:46:01,099 - ERROR - Sensor ID 5: disconnected
+2025-02-10 05:46:05,106 - WARNING - Sensor ID 8: anomalous extreme temperature detected: -11.72°C
+2025-02-10 05:46:09,117 - WARNING - Sensor ID 13: anomalous extreme temperature detected: -13.51°C
+2025-02-10 05:46:09,118 - WARNING - Sensor ID 19: anomalous extreme temperature detected: 55.78°C
+2025-02-10 05:46:11,125 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:46:13,131 - ERROR - Sensor ID 8: disconnected
+2025-02-10 05:46:17,142 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:46:18,143 - WARNING - Sensor ID 14: anomalous extreme temperature detected: 54.02°C
+2025-02-10 05:46:19,145 - WARNING - Sensor ID 15: anomalous extreme temperature detected: -17.34°C
+2025-02-10 05:46:21,155 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:46:22,159 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:46:22,159 - ERROR - Sensor ID 6: disconnected
+2025-02-10 05:46:22,160 - WARNING - Sensor ID 10: anomalous extreme temperature detected: 55.77°C
+2025-02-10 05:46:24,163 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:46:29,180 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:46:31,187 - WARNING - Sensor ID 5: anomalous extreme temperature detected: 59.23°C
+2025-02-10 05:46:31,189 - WARNING - Sensor ID 10: anomalous extreme temperature detected: -11.03°C
+2025-02-10 05:46:32,194 - ERROR - Sensor ID 12: disconnected
+2025-02-10 05:46:39,210 - WARNING - Sensor ID 1: anomalous extreme temperature detected: -18.59°C
+2025-02-10 05:46:41,216 - WARNING - Sensor ID 16: anomalous extreme temperature detected: 57.44°C
+2025-02-10 05:46:43,220 - WARNING - Sensor ID 13: anomalous extreme temperature detected: -17.01°C
+2025-02-10 05:46:43,221 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:46:43,225 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:46:44,227 - ERROR - Sensor ID 9: disconnected
+2025-02-10 05:46:46,231 - ERROR - Sensor ID 1: disconnected
+2025-02-10 05:46:48,238 - WARNING - Sensor ID 3: anomalous extreme temperature detected: -17.1°C
+2025-02-10 05:46:48,239 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:46:51,245 - WARNING - Sensor ID 8: anomalous extreme temperature detected: 55.37°C
+2025-02-10 05:46:52,247 - WARNING - Sensor ID 2: anomalous extreme temperature detected: -18.16°C
+2025-02-10 05:46:53,249 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:46:55,254 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:46:55,256 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:46:55,256 - ERROR - Sensor ID 12: disconnected
+2025-02-10 05:46:55,256 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:46:56,262 - WARNING - Sensor ID 6: anomalous extreme temperature detected: 52.11°C
+2025-02-10 05:46:57,269 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:46:59,280 - ERROR - Sensor ID 5: disconnected
+2025-02-10 05:46:59,281 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:47:00,281 - WARNING - Sensor ID 1: anomalous extreme temperature detected: -14.08°C
+2025-02-10 05:47:03,295 - WARNING - Sensor ID 9: anomalous extreme temperature detected: -17.22°C
+2025-02-10 05:47:07,323 - WARNING - Sensor ID 8: anomalous extreme temperature detected: -18.91°C
+2025-02-10 05:47:08,327 - WARNING - Sensor ID 19: anomalous extreme temperature detected: -13.6°C
+2025-02-10 05:47:10,337 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:47:10,338 - WARNING - Sensor ID 18: anomalous extreme temperature detected: -17.28°C
+2025-02-10 05:47:11,339 - WARNING - Sensor ID 19: anomalous extreme temperature detected: -10.2°C
+2025-02-10 05:47:12,340 - WARNING - Sensor ID 13: anomalous extreme temperature detected: 58.25°C
+2025-02-10 05:47:13,341 - ERROR - Sensor ID 6: disconnected
+2025-02-10 05:47:14,344 - WARNING - Sensor ID 18: anomalous extreme temperature detected: 52.7°C
+2025-02-10 05:47:17,351 - WARNING - Sensor ID 2: anomalous extreme temperature detected: 52.8°C
+2025-02-10 05:47:17,352 - WARNING - Sensor ID 19: anomalous extreme temperature detected: 50.49°C
+2025-02-10 05:47:18,354 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:47:19,357 - WARNING - Sensor ID 11: anomalous extreme temperature detected: -18.85°C
+2025-02-10 05:47:21,364 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:47:21,365 - WARNING - Sensor ID 20: anomalous extreme temperature detected: -15.44°C
+2025-02-10 05:47:24,371 - ERROR - Sensor ID 5: disconnected
+2025-02-10 05:47:24,371 - ERROR - Sensor ID 7: disconnected
+2025-02-10 05:47:24,372 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:47:24,373 - ERROR - Sensor ID 20: disconnected
+2025-02-10 05:47:26,378 - WARNING - Sensor ID 3: anomalous extreme temperature detected: 51.82°C
+2025-02-10 05:47:27,379 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:47:27,380 - WARNING - Sensor ID 4: anomalous extreme temperature detected: 58.66°C
+2025-02-10 05:47:28,383 - WARNING - Sensor ID 15: anomalous extreme temperature detected: 58.37°C
+2025-02-10 05:47:30,387 - WARNING - Sensor ID 5: anomalous extreme temperature detected: -15.16°C
+2025-02-10 05:47:30,388 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:47:31,389 - WARNING - Sensor ID 5: anomalous extreme temperature detected: -13.39°C
+2025-02-10 05:47:31,389 - WARNING - Sensor ID 13: anomalous extreme temperature detected: -20.0°C
+2025-02-10 05:47:32,391 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:47:33,395 - WARNING - Sensor ID 4: anomalous extreme temperature detected: -16.46°C
+2025-02-10 05:47:34,401 - ERROR - Sensor ID 8: disconnected
+2025-02-10 05:47:39,412 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:47:40,413 - WARNING - Sensor ID 16: anomalous extreme temperature detected: -14.21°C
+2025-02-10 05:47:41,417 - WARNING - Sensor ID 20: anomalous extreme temperature detected: 50.72°C
+2025-02-10 05:47:42,417 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:47:43,421 - WARNING - Sensor ID 12: anomalous extreme temperature detected: -11.14°C
+2025-02-10 05:47:43,424 - ERROR - Sensor ID 17: disconnected
+2025-02-10 05:47:44,427 - WARNING - Sensor ID 17: anomalous extreme temperature detected: -18.23°C
+2025-02-10 05:47:46,429 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:47:46,430 - WARNING - Sensor ID 18: anomalous extreme temperature detected: -19.39°C
+2025-02-10 05:47:47,431 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:47:47,432 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:48:02,482 - WARNING - Sensor ID 2: anomalous extreme temperature detected: -14.38°C
+2025-02-10 05:48:03,486 - WARNING - Sensor ID 8: anomalous extreme temperature detected: 56.05°C
+2025-02-10 05:48:04,487 - WARNING - Sensor ID 1: anomalous extreme temperature detected: 58.5°C
+2025-02-10 05:48:04,488 - ERROR - Sensor ID 5: disconnected
+2025-02-10 05:48:07,497 - ERROR - Sensor ID 14: disconnected
+2025-02-10 05:48:07,500 - WARNING - Sensor ID 15: anomalous extreme temperature detected: 52.04°C
+2025-02-10 05:48:08,502 - ERROR - Sensor ID 13: disconnected
+2025-02-10 05:48:10,505 - ERROR - Sensor ID 14: disconnected
+2025-02-10 05:48:13,514 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:48:17,522 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:48:19,530 - ERROR - Sensor ID 17: disconnected
+2025-02-10 05:48:20,533 - WARNING - Sensor ID 18: anomalous extreme temperature detected: 53.69°C
+2025-02-10 05:48:22,540 - WARNING - Sensor ID 15: anomalous extreme temperature detected: 56.33°C
+2025-02-10 05:48:25,549 - ERROR - Sensor ID 7: disconnected
+2025-02-10 05:48:32,575 - WARNING - Sensor ID 13: anomalous extreme temperature detected: -19.46°C
+2025-02-10 05:48:34,580 - WARNING - Sensor ID 7: anomalous extreme temperature detected: -11.9°C
+2025-02-10 05:48:34,580 - ERROR - Sensor ID 13: disconnected
+2025-02-10 05:48:36,588 - ERROR - Sensor ID 20: disconnected
+2025-02-10 05:48:37,590 - WARNING - Sensor ID 3: anomalous extreme temperature detected: -16.83°C
+2025-02-10 05:48:37,592 - ERROR - Sensor ID 9: disconnected
+2025-02-10 05:48:37,593 - WARNING - Sensor ID 12: anomalous extreme temperature detected: -10.87°C
+2025-02-10 05:48:42,610 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:48:43,616 - WARNING - Sensor ID 4: anomalous extreme temperature detected: 52.53°C
+2025-02-10 05:48:43,619 - WARNING - Sensor ID 11: anomalous extreme temperature detected: -13.55°C
+2025-02-10 05:48:45,628 - ERROR - Sensor ID 20: disconnected
+2025-02-10 05:48:46,631 - WARNING - Sensor ID 10: anomalous extreme temperature detected: -11.84°C
+2025-02-10 05:48:47,635 - WARNING - Sensor ID 8: anomalous extreme temperature detected: -12.26°C
+2025-02-10 05:48:47,636 - WARNING - Sensor ID 10: anomalous extreme temperature detected: 58.98°C
+2025-02-10 05:48:47,637 - WARNING - Sensor ID 14: anomalous extreme temperature detected: 57.4°C
+2025-02-10 05:48:47,639 - WARNING - Sensor ID 20: anomalous extreme temperature detected: -11.22°C
+2025-02-10 05:48:48,643 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:48:48,645 - WARNING - Sensor ID 5: anomalous extreme temperature detected: 56.36°C
+2025-02-10 05:48:49,647 - WARNING - Sensor ID 3: anomalous extreme temperature detected: 59.86°C
+2025-02-10 05:48:49,648 - WARNING - Sensor ID 8: anomalous extreme temperature detected: 51.9°C
+2025-02-10 05:48:49,648 - ERROR - Sensor ID 10: disconnected
+2025-02-10 05:48:51,655 - WARNING - Sensor ID 3: anomalous extreme temperature detected: -14.5°C
+2025-02-10 05:48:52,660 - WARNING - Sensor ID 19: anomalous extreme temperature detected: -15.83°C
+2025-02-10 05:48:53,662 - WARNING - Sensor ID 4: anomalous extreme temperature detected: 53.15°C
+2025-02-10 05:48:59,674 - WARNING - Sensor ID 10: anomalous extreme temperature detected: 52.94°C
+2025-02-10 05:48:59,674 - WARNING - Sensor ID 14: anomalous extreme temperature detected: -14.97°C
+2025-02-10 05:49:00,676 - ERROR - Sensor ID 13: disconnected
+2025-02-10 05:49:02,678 - ERROR - Sensor ID 9: disconnected
+2025-02-10 05:49:04,680 - WARNING - Sensor ID 9: anomalous extreme temperature detected: -15.27°C
+2025-02-10 05:49:04,682 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:49:05,683 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:49:08,689 - ERROR - Sensor ID 14: disconnected
+2025-02-10 05:49:10,692 - ERROR - Sensor ID 8: disconnected
+2025-02-10 05:49:11,694 - WARNING - Sensor ID 17: anomalous extreme temperature detected: 57.92°C
+2025-02-10 05:49:11,694 - WARNING - Sensor ID 18: anomalous extreme temperature detected: 51.04°C
+2025-02-10 05:49:12,695 - WARNING - Sensor ID 7: anomalous extreme temperature detected: -17.85°C
+2025-02-10 05:49:15,700 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:49:15,701 - WARNING - Sensor ID 11: anomalous extreme temperature detected: 51.54°C
+2025-02-10 05:49:16,703 - WARNING - Sensor ID 4: anomalous extreme temperature detected: -18.48°C
+2025-02-10 05:49:20,716 - ERROR - Sensor ID 11: disconnected
+2025-02-10 05:49:21,719 - WARNING - Sensor ID 3: anomalous extreme temperature detected: 55.12°C
+2025-02-10 05:49:23,722 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:49:23,724 - WARNING - Sensor ID 3: anomalous extreme temperature detected: -19.16°C
+2025-02-10 05:49:26,737 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:49:31,756 - WARNING - Sensor ID 15: anomalous extreme temperature detected: 59.73°C
+2025-02-10 05:49:32,760 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:49:33,765 - ERROR - Sensor ID 16: disconnected
+2025-02-10 05:49:33,766 - WARNING - Sensor ID 18: anomalous extreme temperature detected: 52.62°C
+2025-02-10 05:49:34,767 - ERROR - Sensor ID 14: disconnected
+2025-02-10 05:49:38,771 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:49:40,774 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:49:41,776 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:49:42,777 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:49:44,779 - WARNING - Sensor ID 10: anomalous extreme temperature detected: -18.03°C
+2025-02-10 05:49:44,780 - WARNING - Sensor ID 13: anomalous extreme temperature detected: -18.02°C
+2025-02-10 05:49:46,783 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:49:49,787 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:49:52,790 - ERROR - Sensor ID 14: disconnected
+2025-02-10 05:49:55,793 - WARNING - Sensor ID 8: anomalous extreme temperature detected: 54.65°C
+2025-02-10 05:49:56,794 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:49:56,795 - WARNING - Sensor ID 15: anomalous extreme temperature detected: -11.16°C
+2025-02-10 05:49:57,796 - WARNING - Sensor ID 6: anomalous extreme temperature detected: -15.81°C
+2025-02-10 05:49:58,798 - ERROR - Sensor ID 10: disconnected
+2025-02-10 05:50:00,801 - ERROR - Sensor ID 17: disconnected
+2025-02-10 05:50:04,806 - ERROR - Sensor ID 5: disconnected
+2025-02-10 05:50:06,810 - WARNING - Sensor ID 19: anomalous extreme temperature detected: -13.26°C
+2025-02-10 05:50:08,814 - ERROR - Sensor ID 8: disconnected
+2025-02-10 05:50:11,817 - WARNING - Sensor ID 7: anomalous extreme temperature detected: 53.76°C
+2025-02-10 05:50:13,819 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:50:13,820 - WARNING - Sensor ID 3: anomalous extreme temperature detected: -10.62°C
+2025-02-10 05:50:14,822 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:50:15,823 - WARNING - Sensor ID 9: anomalous extreme temperature detected: -17.82°C
+2025-02-10 05:50:17,825 - WARNING - Sensor ID 13: anomalous extreme temperature detected: -16.82°C
+2025-02-10 05:50:19,829 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:50:22,834 - WARNING - Sensor ID 4: anomalous extreme temperature detected: -16.04°C
+2025-02-10 05:50:22,835 - ERROR - Sensor ID 10: disconnected
+2025-02-10 05:50:22,836 - WARNING - Sensor ID 15: anomalous extreme temperature detected: -15.35°C
+2025-02-10 05:50:26,844 - WARNING - Sensor ID 7: anomalous extreme temperature detected: 51.27°C
+2025-02-10 05:50:27,846 - ERROR - Sensor ID 5: disconnected
+2025-02-10 05:50:29,851 - WARNING - Sensor ID 8: anomalous extreme temperature detected: -10.75°C
+2025-02-10 05:50:32,859 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:50:36,871 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:50:38,875 - ERROR - Sensor ID 11: disconnected
+2025-02-10 05:50:39,877 - WARNING - Sensor ID 2: anomalous extreme temperature detected: -14.54°C
+2025-02-10 05:50:41,881 - WARNING - Sensor ID 15: anomalous extreme temperature detected: 52.53°C
+2025-02-10 05:50:44,883 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:50:44,885 - ERROR - Sensor ID 20: disconnected
+2025-02-10 05:50:51,894 - WARNING - Sensor ID 6: anomalous extreme temperature detected: -18.39°C
+2025-02-10 05:50:52,898 - ERROR - Sensor ID 14: disconnected
+2025-02-10 05:50:56,907 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:50:58,909 - WARNING - Sensor ID 2: anomalous extreme temperature detected: 54.7°C
+2025-02-10 05:50:58,909 - WARNING - Sensor ID 17: anomalous extreme temperature detected: 51.16°C
+2025-02-10 05:51:01,917 - WARNING - Sensor ID 5: anomalous extreme temperature detected: -16.49°C
+2025-02-10 05:51:02,919 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:51:02,920 - WARNING - Sensor ID 12: anomalous extreme temperature detected: -15.76°C
+2025-02-10 05:51:05,929 - WARNING - Sensor ID 13: anomalous extreme temperature detected: 53.55°C
+2025-02-10 05:51:07,934 - WARNING - Sensor ID 20: anomalous extreme temperature detected: -13.89°C
+2025-02-10 05:51:10,941 - WARNING - Sensor ID 11: anomalous extreme temperature detected: -11.07°C
+2025-02-10 05:51:12,947 - WARNING - Sensor ID 3: anomalous extreme temperature detected: 51.93°C
+2025-02-10 05:51:14,952 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:51:15,953 - WARNING - Sensor ID 5: anomalous extreme temperature detected: -11.3°C
+2025-02-10 05:51:15,954 - WARNING - Sensor ID 6: anomalous extreme temperature detected: -10.33°C
+2025-02-10 05:51:19,960 - WARNING - Sensor ID 18: anomalous extreme temperature detected: -17.61°C
+2025-02-10 05:51:20,961 - WARNING - Sensor ID 8: anomalous extreme temperature detected: -17.94°C
+2025-02-10 05:51:25,967 - WARNING - Sensor ID 3: anomalous extreme temperature detected: 56.75°C
+2025-02-10 05:51:25,968 - ERROR - Sensor ID 7: disconnected
+2025-02-10 05:51:27,970 - ERROR - Sensor ID 6: disconnected
+2025-02-10 05:51:29,972 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:51:34,985 - WARNING - Sensor ID 2: anomalous extreme temperature detected: 50.05°C
+2025-02-10 05:51:36,993 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:51:37,998 - ERROR - Sensor ID 11: disconnected
+2025-02-10 05:51:39,001 - WARNING - Sensor ID 7: anomalous extreme temperature detected: 50.89°C
+2025-02-10 05:51:43,013 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:51:44,015 - WARNING - Sensor ID 2: anomalous extreme temperature detected: -19.85°C
+2025-02-10 05:51:44,015 - WARNING - Sensor ID 9: anomalous extreme temperature detected: -11.85°C
+2025-02-10 05:51:45,017 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:51:45,017 - WARNING - Sensor ID 13: anomalous extreme temperature detected: 58.03°C
+2025-02-10 05:51:45,017 - WARNING - Sensor ID 15: anomalous extreme temperature detected: -18.33°C
+2025-02-10 05:51:46,018 - WARNING - Sensor ID 18: anomalous extreme temperature detected: -18.82°C
+2025-02-10 05:51:49,023 - ERROR - Sensor ID 1: disconnected
+2025-02-10 05:51:52,028 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:51:52,030 - WARNING - Sensor ID 15: anomalous extreme temperature detected: -14.85°C
+2025-02-10 05:51:53,032 - WARNING - Sensor ID 17: anomalous extreme temperature detected: 50.1°C
+2025-02-10 05:51:57,039 - ERROR - Sensor ID 20: disconnected
+2025-02-10 05:51:59,044 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:52:00,051 - WARNING - Sensor ID 6: anomalous extreme temperature detected: -11.62°C
+2025-02-10 05:52:01,055 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:52:02,061 - WARNING - Sensor ID 4: anomalous extreme temperature detected: -15.73°C
+2025-02-10 05:52:03,066 - ERROR - Sensor ID 10: disconnected
+2025-02-10 05:52:04,071 - ERROR - Sensor ID 13: disconnected
+2025-02-10 05:52:06,078 - WARNING - Sensor ID 20: anomalous extreme temperature detected: 54.4°C
+2025-02-10 05:52:07,080 - WARNING - Sensor ID 2: anomalous extreme temperature detected: -16.1°C
+2025-02-10 05:52:07,081 - ERROR - Sensor ID 12: disconnected
+2025-02-10 05:52:07,083 - ERROR - Sensor ID 14: disconnected
+2025-02-10 05:52:08,084 - WARNING - Sensor ID 3: anomalous extreme temperature detected: -13.09°C
+2025-02-10 05:52:08,084 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:52:11,090 - WARNING - Sensor ID 18: anomalous extreme temperature detected: -14.86°C
+2025-02-10 05:52:11,090 - WARNING - Sensor ID 19: anomalous extreme temperature detected: -11.59°C
+2025-02-10 05:52:14,096 - ERROR - Sensor ID 13: disconnected
+2025-02-10 05:52:15,098 - WARNING - Sensor ID 4: anomalous extreme temperature detected: 52.53°C
+2025-02-10 05:52:19,104 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:52:19,105 - WARNING - Sensor ID 18: anomalous extreme temperature detected: 55.87°C
+2025-02-10 05:52:19,106 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:52:20,107 - WARNING - Sensor ID 7: anomalous extreme temperature detected: 52.7°C
+2025-02-10 05:52:21,110 - WARNING - Sensor ID 18: anomalous extreme temperature detected: 52.36°C
+2025-02-10 05:52:23,114 - WARNING - Sensor ID 2: anomalous extreme temperature detected: -12.59°C
+2025-02-10 05:52:24,118 - ERROR - Sensor ID 8: disconnected
+2025-02-10 05:52:26,124 - WARNING - Sensor ID 18: anomalous extreme temperature detected: 58.39°C
+2025-02-10 05:52:30,134 - WARNING - Sensor ID 14: anomalous extreme temperature detected: -14.25°C
+2025-02-10 05:52:34,143 - WARNING - Sensor ID 15: anomalous extreme temperature detected: 54.82°C
+2025-02-10 05:52:35,144 - ERROR - Sensor ID 7: disconnected
+2025-02-10 05:52:36,148 - WARNING - Sensor ID 20: anomalous extreme temperature detected: 57.58°C
+2025-02-10 05:52:38,150 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:52:39,155 - ERROR - Sensor ID 16: disconnected
+2025-02-10 05:52:44,169 - ERROR - Sensor ID 9: disconnected
+2025-02-10 05:52:44,171 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:52:47,177 - ERROR - Sensor ID 14: disconnected
+2025-02-10 05:52:49,185 - WARNING - Sensor ID 12: anomalous extreme temperature detected: -10.13°C
+2025-02-10 05:52:53,202 - ERROR - Sensor ID 7: disconnected
+2025-02-10 05:52:53,205 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:52:54,207 - WARNING - Sensor ID 6: anomalous extreme temperature detected: 52.5°C
+2025-02-10 05:52:57,218 - ERROR - Sensor ID 13: disconnected
+2025-02-10 05:53:00,226 - WARNING - Sensor ID 1: anomalous extreme temperature detected: 52.95°C
+2025-02-10 05:53:01,233 - ERROR - Sensor ID 9: disconnected
+2025-02-10 05:53:02,238 - ERROR - Sensor ID 17: disconnected
+2025-02-10 05:53:03,240 - WARNING - Sensor ID 3: anomalous extreme temperature detected: -14.52°C
+2025-02-10 05:53:07,253 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:53:09,264 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:53:09,267 - ERROR - Sensor ID 13: disconnected
+2025-02-10 05:53:10,274 - WARNING - Sensor ID 15: anomalous extreme temperature detected: -18.03°C
+2025-02-10 05:53:15,291 - WARNING - Sensor ID 19: anomalous extreme temperature detected: -17.74°C
+2025-02-10 05:53:17,297 - ERROR - Sensor ID 3: disconnected
+2025-02-10 05:53:17,300 - ERROR - Sensor ID 5: disconnected
+2025-02-10 05:53:21,316 - ERROR - Sensor ID 7: disconnected
+2025-02-10 05:53:22,322 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:53:22,323 - WARNING - Sensor ID 20: anomalous extreme temperature detected: -11.77°C
+2025-02-10 05:53:23,325 - WARNING - Sensor ID 2: anomalous extreme temperature detected: 54.51°C
+2025-02-10 05:53:24,332 - WARNING - Sensor ID 9: anomalous extreme temperature detected: -10.08°C
+2025-02-10 05:53:24,334 - WARNING - Sensor ID 18: anomalous extreme temperature detected: -15.65°C
+2025-02-10 05:53:31,359 - WARNING - Sensor ID 15: anomalous extreme temperature detected: 50.03°C
+2025-02-10 05:53:33,370 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:53:36,385 - ERROR - Sensor ID 11: disconnected
+2025-02-10 05:53:37,390 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:53:38,393 - WARNING - Sensor ID 7: anomalous extreme temperature detected: 57.12°C
+2025-02-10 05:53:39,400 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:53:43,414 - WARNING - Sensor ID 14: anomalous extreme temperature detected: 54.01°C
+2025-02-10 05:53:45,424 - ERROR - Sensor ID 11: disconnected
+2025-02-10 05:53:45,424 - WARNING - Sensor ID 15: anomalous extreme temperature detected: 51.09°C
+2025-02-10 05:53:49,436 - WARNING - Sensor ID 13: anomalous extreme temperature detected: -18.44°C
+2025-02-10 05:53:53,449 - WARNING - Sensor ID 3: anomalous extreme temperature detected: -16.95°C
+2025-02-10 05:53:54,458 - WARNING - Sensor ID 20: anomalous extreme temperature detected: -15.08°C
+2025-02-10 05:53:55,460 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:53:55,463 - ERROR - Sensor ID 4: disconnected
+2025-02-10 05:53:57,471 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:54:00,482 - WARNING - Sensor ID 20: anomalous extreme temperature detected: -10.15°C
+2025-02-10 05:54:05,489 - WARNING - Sensor ID 8: anomalous extreme temperature detected: -19.36°C
+2025-02-10 05:54:05,490 - WARNING - Sensor ID 9: anomalous extreme temperature detected: 52.45°C
+2025-02-10 05:54:06,491 - ERROR - Sensor ID 18: disconnected
+2025-02-10 05:54:07,495 - ERROR - Sensor ID 16: disconnected
+2025-02-10 05:54:09,500 - WARNING - Sensor ID 4: anomalous extreme temperature detected: -19.53°C
+2025-02-10 05:54:09,501 - ERROR - Sensor ID 11: disconnected
+2025-02-10 05:54:11,503 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:54:14,507 - ERROR - Sensor ID 2: disconnected
+2025-02-10 05:54:14,508 - WARNING - Sensor ID 17: anomalous extreme temperature detected: -19.44°C
+2025-02-10 05:54:16,513 - WARNING - Sensor ID 4: anomalous extreme temperature detected: 58.75°C
+2025-02-10 05:54:17,515 - ERROR - Sensor ID 5: disconnected
+2025-02-10 05:54:19,352 - INFO - Closing the Kafka producer with 0 secs timeout.
+2025-02-10 05:54:19,353 - INFO - Proceeding to force close the producer since pending requests could not be completed within timeout 0.
+2025-02-10 05:54:47,785 - INFO - <BrokerConnection node_id=0 host=jesus-vmware:9092 <connecting> [IPv4 ('127.0.1.1', 9092)]>: connecting to jesus-vmware:9092 [('127.0.1.1', 9092) IPv4]
+2025-02-10 05:54:47,786 - INFO - <BrokerConnection node_id=0 host=jesus-vmware:9092 <connecting> [IPv4 ('127.0.1.1', 9092)]>: Connection complete.
+2025-02-10 05:54:47,786 - INFO - <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. 
+2025-02-10 05:55:10,809 - WARNING - Sensor ID 7: anomalous extreme temperature detected: 55.59°C
+2025-02-10 05:55:17,819 - WARNING - Sensor ID 10: anomalous extreme temperature detected: 56.73°C
+2025-02-10 05:55:20,823 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:55:25,829 - WARNING - Sensor ID 9: anomalous extreme temperature detected: 52.02°C
+2025-02-10 05:55:45,856 - WARNING - Sensor ID 8: anomalous extreme temperature detected: -18.71°C
+2025-02-10 05:56:06,894 - ERROR - Sensor ID 16: disconnected
+2025-02-10 05:56:27,946 - ERROR - Sensor ID 13: disconnected
+2025-02-10 05:56:31,964 - WARNING - Sensor ID 6: anomalous extreme temperature detected: -13.99°C
+2025-02-10 05:56:36,974 - ERROR - Sensor ID 8: disconnected
+2025-02-10 05:56:42,988 - ERROR - Sensor ID 15: disconnected
+2025-02-10 05:57:36,122 - ERROR - Sensor ID 17: disconnected
+2025-02-10 05:57:37,126 - WARNING - Sensor ID 5: anomalous extreme temperature detected: -15.37°C
+2025-02-10 05:57:47,164 - WARNING - Sensor ID 13: anomalous extreme temperature detected: 50.03°C
+2025-02-10 05:58:14,264 - WARNING - Sensor ID 10: anomalous extreme temperature detected: 59.52°C
+2025-02-10 05:58:16,270 - WARNING - Sensor ID 1: anomalous extreme temperature detected: -16.05°C
+2025-02-10 05:58:20,280 - WARNING - Sensor ID 6: anomalous extreme temperature detected: -16.34°C
+2025-02-10 05:58:23,283 - ERROR - Sensor ID 8: disconnected
+2025-02-10 05:58:35,306 - ERROR - Sensor ID 19: disconnected
+2025-02-10 05:58:59,663 - INFO - Closing the Kafka producer with 0 secs timeout.
+2025-02-10 05:58:59,664 - INFO - Proceeding to force close the producer since pending requests could not be completed within timeout 0.
+2025-02-10 05:59:42,457 - INFO - <BrokerConnection node_id=0 host=jesus-vmware:9092 <connecting> [IPv4 ('127.0.1.1', 9092)]>: connecting to jesus-vmware:9092 [('127.0.1.1', 9092) IPv4]
+2025-02-10 05:59:42,457 - INFO - <BrokerConnection node_id=0 host=jesus-vmware:9092 <connecting> [IPv4 ('127.0.1.1', 9092)]>: Connection complete.
+2025-02-10 05:59:42,457 - INFO - <BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv4 ('127.0.0.1', 9092)]>: Closing connection. 
+2025-02-10 05:59:44,460 - WARNING - Sensor ID 2: anomalous extreme temperature detected: -11.49°C
+2025-02-10 05:59:55,476 - ERROR - Sensor ID 18: disconnected
+2025-02-10 06:00:05,487 - WARNING - Sensor ID 6: anomalous extreme temperature detected: 52.64°C
+2025-02-10 06:00:07,490 - ERROR - Sensor ID 19: disconnected
+2025-02-10 06:00:08,491 - ERROR - Sensor ID 15: disconnected
+2025-02-10 06:00:09,493 - ERROR - Sensor ID 18: disconnected
+2025-02-10 06:00:10,494 - ERROR - Sensor ID 14: disconnected
+2025-02-10 06:00:12,497 - ERROR - Sensor ID 15: disconnected
+2025-02-10 06:00:14,499 - WARNING - Sensor ID 10: anomalous extreme temperature detected: -19.35°C
+2025-02-10 06:00:15,502 - ERROR - Sensor ID 15: disconnected
+2025-02-10 06:00:32,518 - WARNING - Sensor ID 4: anomalous extreme temperature detected: 59.99°C
+2025-02-10 06:00:33,263 - INFO - Closing the Kafka producer with 0 secs timeout.
+2025-02-10 06:00:33,263 - INFO - Proceeding to force close the producer since pending requests could not be completed within timeout 0.
