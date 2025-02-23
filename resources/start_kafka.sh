@@ -1,16 +1,18 @@
 #!/bin/bash
 
-# Abrir nueva terminal y ejecutar Zookeeper
+# Open a new terminal and run Zookeeper
 gnome-terminal -- bash -c "zookeeper-server-start.sh /opt/kafka/config/zookeeper.properties; exec bash"
 
-# Esperar unos segundos para asegurar que Zookeeper esté completamente iniciado
+# Wait a few seconds to ensure that Zookeeper is fully started
 sleep 5
 
-# Abrir nueva terminal y ejecutar Kafka server
+# Open a new terminal and run Kafka server
 gnome-terminal -- bash -c "kafka-server-start.sh /opt/kafka/config/server.properties; exec bash"
 
-# Esperar unos segundos para asegurar que Kafka server esté completamente iniciado
+# Wait a few seconds to ensure that the Kafka server is fully started.
 sleep 5
 
-# Abrir nueva terminal y crear el topic
+# Open a new terminal and create the topics sensor-data and log-data
 gnome-terminal -- bash -c "kafka-topics.sh --create --topic sensor-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1; exec bash"
+
+gnome-terminal -- bash -c "kafka-topics.sh --create --topic log-data --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1; exec bash"

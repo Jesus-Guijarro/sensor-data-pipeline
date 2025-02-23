@@ -51,8 +51,10 @@ df = sensor_data_df \
         col("max_temperature")
     ).dropDuplicates(["sensor_id", "window_start", "window_end"])
 
-# Function to write the results to the database
 def write_to_db(batch_df,batch_id):
+    """
+    Function to write the results to the database
+    """
     conn, cursor = db.get_connection()
     # Insert the data
     for row in batch_df.collect():

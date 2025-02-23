@@ -1,24 +1,40 @@
 # SENSOR DATA PIPELINE
 
-## Introduction
-This project focuses on simulating sensor data and processing it through a data pipeline using Kafka, Spark, and Airflow. It serves as a learning exercise to understand the integration and functionalities of these technologies.
+## 📖Introduction 
+This project focuses on simulating sensor data and processing it through a data pipeline using Kafka, and Spark. It serves as a learning exercise to understand the integration and functionalities of these technologies.
 
-## Overview
-The goal of this project is to:
-- Generate simulated sensor data.
-- Use Kafka for real-time data streaming.
-- Process the data using Spark for analytics and transformations.
-- Orchestrate the pipeline with Airflow for scheduling and monitoring.
 
-## Components
-1. Producer (`producer.py`): simulates sensor data and publishes it to Kafka.
-2. Consumers (`sensor_consumer.py` and `log_consumer.py`): reads data from Kafka and processes it.
-3. Spark Job (`sensor_etl_job.py`): executes Spark jobs to analyze sensor data.
-4. Airflow DAG (`sensor_data_dag.py`): defines the workflow to automate and monitor the pipeline.
+## 🌍Overview 
+Sensors generate temperature data every second and send it to a Kafka topic. Every 15 minutes, the collected data is processed to compute the minimum, maximum, and average temperatures, which are then stored in a PostgreSQL database for future batch processing.  
 
-## Installation and Configuration
+In addition to temperature data, the system also manages sensor logs, identifying events such as disconnections or extreme temperature values.  
 
-### Create the Virtual Environment
+### Components
+- `producer.py`: simulates sensor data and publishes it to Kafka.  
+- `sensor_consumer.py`: consumes sensor data from Kafka topic named `sensor-data`, processes temperature readings every 15 minutes, and stores the aggregated results (min, max, average) in PostgreSQL.  
+- `log_consumer.py`: consumes log data from Kafka topic named `log-data`, detecting anomalies such as sensor disconnections or extreme temperature values for further analysis.  
+
+**Application Architecture**
+
+diagrama
+
+### Data Storage and Use
+
+The application database, `sensor_data`, is composed of only one table:
+
+- `sensor_temperatures`: table that stores the processed sensor data consumed from the `sensor-data` topic every 15 minutes.  
+
+<img src="images/entity-relationship-diagram.png" alt="ER Diagram" width="170"/>
+
+## ⚙️Installation and Configuration
+
+### 1. Clone the repository
+
+```sh
+git clone https://github.com/Jesus-Guijarro/sensor-data-pipeline.git
+```
+
+### 2. Create Virtual Environment and Install Dependencies
 ```sh
 python3 -m venv sensor-venv
 ```
@@ -36,9 +52,9 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### Kafka 
+### 3. Install and configure Kafka and Spark
 
-#### Download Kafka
+#### Download **Kafka**
 ```sh
 wget https://downloads.apache.org/kafka/3.7.0/kafka_2.13-3.7.0.tgz
 ```
@@ -67,9 +83,7 @@ Then run:
 source ~/.bashrc
 ```
 
-### Spark
-
-#### Download
+#### Download **Spark**
 ```sh
 wget https://dlcdn.apache.org/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz
 ```
@@ -103,6 +117,8 @@ spark-shell
 wget https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.0.0/spark-sql-kafka-0-10_2.12-3.0.0.jar
 ```
 
+### 4. Setup Database 
+
 ### PostgreSQL
 Access PostgreSQL:
 ```sh
@@ -119,7 +135,7 @@ Connect to the database:
 \c sensor_data
 ```
 
-### Create the tables:
+#### Create the tables:
 ```sql
 CREATE TABLE sensor_temperatures (
     sensor_id INT,
@@ -132,23 +148,15 @@ CREATE TABLE sensor_temperatures (
 );
 ```
 
-Table to store hourly aggregated data from the sensors:
-```sql
-CREATE TABLE sensor_temperatures_hourly (
-    sensor_id INT,
-    record_date DATE,
-    record_hour TIME,
-    avg_temperature DECIMAL(5,2),
-    min_temperature DECIMAL(5,2),
-    max_temperature DECIMAL(5,2),
-    PRIMARY KEY (sensor_id, record_date, record_hour)
-);
+### 5. Config database file
 
+1. Create the config database file:
+```sh
+touch config.ini
 ```
-#### Create a `config.ini` File with Database Connection Data
 
-For example:
-```ini
+2. Configure your database connection details in `config.ini`:
+```conf
 [database]
 dbname = sensor_data
 user = postgres
@@ -157,35 +165,29 @@ host = localhost
 port = 5432
 ```
 
-## Airflow
+### 6. Final Project Structure
 
-Initialize the Airflow database:
-```sh
-airflow db init
+```
+📦 sensor-data-pipeline
+├── 📂 database
+│ ├── 🐍 database.py
+│ └── 🛢️ sensor_data_db.sql
+├── 📂 resources
+│ ├── 📄 spark-sql-kafka-0-10_2.12-3.0.0.jar
+│ └── 📄 start_kafka.sh
+├── 📂 sensor-venv
+├── 🚫 .gitignore
+├── ⚙️ config.ini
+├── 📜 LICENSE
+├── 🐍 log_consumer.py
+├── 🐍 producer.py
+├── 📄 README.md
+├── 📄 requirements.txt
+├── 🐍 sensor_consumer.py
+└── 🐍 sensor.py
 ```
 
-Create an admin user:
-```sh
-airflow users create \
-    --username jfgs \
-    --password admin \
-    --firstname Admin \
-    --lastname User \
-    --role Admin \
-    --email jfgs@sensor-data.com
-```
-Start the Airflow web server and scheduler to test if everything is working:
-```sh
-airflow webserver --port 8080
-```
-
-```sh
-airflow scheduler
-```
-Shutdown the web server and scheduler
-
-
-## Run project
+## 🚀Running the Project
 
 ### Kafka
 Each command in a separate terminal:
@@ -233,23 +235,6 @@ In other terminal:
 python log_consumer.py
 ```
 
-## Airflow
-Copy file `sensor_data_dag.py` in /home/airflow/dags/
-```sh
-cp sensor_data_dag.py /home/{your_user}/airflow/dags/
-```
-
-In two different terminals:
-```sh
-airflow webserver --port 8080
-```
-```sh
-airflow scheduler
-```
-
-Check http://localhost:8080/
-
-
 If you want to delete the data stored in the `sensor-data` and `log-data` topics:
 ```sh
 kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic sensor-data
@@ -257,7 +242,6 @@ kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic sensor-data
 kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic log-data
 ```
 
-## Extra
 ### Run script to start Kafka, Zookeper and to create the Kafka topic `sensor-data`
 
 ```sh
@@ -272,3 +256,20 @@ chmod +x start_kafka.sh
 ```sh
 ./start_kafka.sh
 ```
+
+## 🔍Extra
+
+- `spark-sql-kafka-0-10_2.12-3.0.0.jar`: Spark-Kafka Connector that enables Spark Structured Streaming to read from and write to Apache Kafka topics.
+- `start_kafka.sh`: script to run the Zookeper and Kafka servers, once they are running the Kafka `sensor-data` topic is created.
+
+## 🛠Technologies Used
+
+- **Programming Language**: Python
+- **Data Streaming**: Apache Kafka
+- **Data Processing**: Apache Spark
+- **Database**: PostgreSQL
+
+## 🔜Future improvements
+
+- Visualize real-time log data with tools such as Grafana.
+- Process sensor data stored in the database every day and generate a daily report.

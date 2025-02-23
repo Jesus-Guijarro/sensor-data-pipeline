@@ -6,6 +6,9 @@ log_topic = 'log-data'
 bootstrap_servers = ['localhost:9092']
 
 def consume_logs():
+    """
+    Consumes log messages from the Kafka topic log-data
+    """
     consumer = KafkaConsumer(
         log_topic,
         bootstrap_servers=bootstrap_servers,
