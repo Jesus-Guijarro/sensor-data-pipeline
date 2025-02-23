@@ -16,7 +16,7 @@ In addition to temperature data, the system also manages sensor logs, identifyin
 
 **Application Architecture**
 
-diagrama
+<img src="images/application-architecture.png" alt="Application architecture" width="450"/>
 
 ### Data Storage and Use
 
