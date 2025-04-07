@@ -1,4 +1,4 @@
-kafka-python-ng
+confluent-kafka
 pyspark
 psycopg2-binary
 configparser
