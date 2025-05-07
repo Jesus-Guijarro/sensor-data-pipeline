@@ -3,3 +3,5 @@ pyspark
 psycopg2-binary
 configparser
 numpy
+matplotlib
+pytest

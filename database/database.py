@@ -38,12 +38,3 @@ def get_connection():
     cursor = connection.cursor()
 
     return connection, cursor
-    
-def close_connection(connection, cursor):
-    """
-    Closes the database connection and cursor.
-    """
-    if cursor:
-        cursor.close()
-    if connection:
-        connection.close()

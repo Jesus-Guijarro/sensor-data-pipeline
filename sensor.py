@@ -4,71 +4,92 @@ import datetime
 import numpy as np
 
 class Sensor:
-    def __init__(self, sensor_id):
+    def __init__(self, sensor_id, diff_temperature=0):
+        """
+        Initialize a sensor instance.
+
+        :param sensor_id: Unique identifier for the sensor
+        :param diff_temperature: Temperature offset relative to the base model (in °C)
+        """
         self.sensor_id = sensor_id
-        self.error_probability = random.uniform(0.001, 0.01)  # Some sensors have a higher probability of error
-    
+        self.diff_temperature = diff_temperature
+        self.error_probability = random.uniform(0.001, 0.01)  # Probability of an anomaly
+
     def generate_normal_data(self):
         """
-        Function to generate a normal temperature value (integer) with daily variation using a sinusoidal model.
+        Generate normal temperature and humidity values based on season and time of day.
+
+        :return: (temperature: int, humidity: int)
         """
         now = datetime.datetime.now()
         month = now.month
-
-        # Base temperature and daily variation for different seasons
-        if 3 <= month <= 5:     # Spring
-            base_temperature = 18  
-            daily_variation = 4
-        elif 6 <= month <= 8:   # Summer
-            base_temperature = 28  
-            daily_variation = 5
-        elif 9 <= month <= 11:  # Autumn
-            base_temperature = 24  
-            daily_variation = 4
-        else:                   # Winter
-            base_temperature = 15 
-            daily_variation = 3
-
         hour = now.hour
-        # Using a sinusoidal function for daily temperature variation:
-        # Assuming minimum at 5:00 (base_temperature - daily_variation)
-        # and maximum at 15:00 (base_temperature + daily_variation)
-        mean_temp = base_temperature + daily_variation * np.sin((hour - 5) / 10 * np.pi - np.pi/2)
 
-        # Generate random temperature from a normal distribution and convert to integer
-        noise = random.uniform(-1, 1)  # for a variation of ±1 degree
-        temperature = int(round(mean_temp + noise))
-        
-        return temperature
-    
+        # Define seasonal ranges for temperature and humidity
+        if 3 <= month <= 5:  # Spring
+            temp_min, temp_max = 15, 25
+            hum_min,  hum_max = 40, 65
+        elif 6 <= month <= 8:  # Summer
+            temp_min, temp_max = 25, 38
+            hum_min,  hum_max = 40, 80
+        elif 9 <= month <= 11:  # Autumn
+            temp_min, temp_max = 18, 28
+            hum_min,  hum_max = 50, 70
+        else:  # Winter
+            temp_min, temp_max = 5, 15
+            hum_min,  hum_max = 50, 70
+
+        # Calculate base and variation for temperature
+        base_temp = (temp_min + temp_max) / 2
+        var_temp  = (temp_max - temp_min) / 2
+        # Sinusoidal variation: min at 5:00, max at 15:00
+        omega = 2 * np.pi / 24
+        mean_temp = base_temp + var_temp * np.sin((hour - 5) / 10 * np.pi - np.pi/2)
+        noise_temp = random.uniform(-1, 1)
+        temperature = int(round(mean_temp + noise_temp + self.diff_temperature))
+
+        # Calculate base and variation for humidity
+        base_hum = (hum_min + hum_max) / 2
+        var_hum  = (hum_max - hum_min) / 2
+        # Cosine-based variation: max at 5:00, min at 15:00
+        mean_hum = base_hum + var_hum * np.cos((hour - 5) / 10 * np.pi - np.pi/2)
+        noise_hum = random.uniform(-3, 3)
+        humidity = int(round(mean_hum + noise_hum))
+        humidity = max(0, min(100, humidity))  # Clamp between 0 and 100
+
+        return temperature, humidity
+
     def generate_sensor_data(self):
         """
-        Function for generating sensor data.
-        """
-        random_value = random.random()
-        anomaly_type = False
+        Generate sensor data, possibly including anomalies (measurement error or disconnect).
 
-        # Check if an anomaly should be generated
-        if random_value < self.error_probability:
-            anomaly_type = random.choice(['Measurement_error', 'Disconnect'])
-            if anomaly_type == 'Measurement_error':
-                # Generate a measurement error with a deviation of at least 5 degrees from the normal temperature
-                normal_temp = self.generate_normal_data()
+        :return: dict with keys 'sensor_id', 'timestamp', 'temperature', 'humidity', and optional 'anomaly'
+        """
+        rnd = random.random()
+        anomaly = None
+
+        if rnd < self.error_probability:
+            anomaly = random.choice(['Measurement_error', 'Disconnect'])
+            if anomaly == 'Measurement_error':
+                # Apply a large deviation to temperature, keep humidity normal
+                normal_temp, normal_hum = self.generate_normal_data()
                 offset = random.choice([random.uniform(5, 10), -random.uniform(5, 10)])
                 temperature = int(round(normal_temp + offset))
-            elif anomaly_type == 'Disconnect':
+                humidity = normal_hum
+            else:  # Disconnect anomaly
                 temperature = None
+                humidity = None
         else:
-            temperature = self.generate_normal_data()
+            temperature, humidity = self.generate_normal_data()
 
         data = {
             'sensor_id': self.sensor_id,
             'timestamp': int(time.time()),
-            'temperature': temperature
+            'temperature': temperature,
+            'humidity': humidity
         }
 
-        if anomaly_type:
-            data['anomaly'] = anomaly_type
-            return data
+        if anomaly:
+            data['anomaly'] = anomaly
 
         return data

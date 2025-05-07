@@ -159,8 +159,8 @@ touch config.ini
 ```conf
 [database]
 dbname = sensor_data
-user = postgres
-password =  ***
+user = your_user
+password =  your_password
 host = localhost
 port = 5432
 ```
@@ -227,6 +227,10 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic log-data --f
 Use Spark Streaming to analyze data in `sensor-data` and send the result to the PostgreSQL database `sensor_data`, table `sensor_averages`:
 
 ```sh
+source sensor-venv/bin/activate
+```
+
+```sh
 spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 --jars resources/spark-sql-kafka-0-10_2.12-3.0.0.jar sensor_consumer.py
 ```
 
@@ -256,6 +260,13 @@ chmod +x start_kafka.sh
 ```sh
 ./start_kafka.sh
 ```
+
+## Testing
+
+```sh
+python -m pytest -q
+```
+
 
 ## 🔍Extra
 
