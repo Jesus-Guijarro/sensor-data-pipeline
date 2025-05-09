@@ -1,7 +1,11 @@
 confluent-kafka
 pyspark
 psycopg2-binary
-configparser
 numpy
 matplotlib
 pytest
+pandas
+pymongo
+apache-airflow
+apache-airflow-providers-mongo
+pendulum

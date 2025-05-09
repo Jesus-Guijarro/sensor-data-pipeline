@@ -1,2 +1,9 @@
 sensor-venv
 config.ini
+airflow.cfg
+airflow.db
+airflow/logs
+simple_auth_manager_passwords.json.generated
+
+.pytest*
+__pycache__

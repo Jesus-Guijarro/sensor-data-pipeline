@@ -56,13 +56,13 @@ agg_df = sensor_data_df \
 
 def write_to_db(batch_df, batch_id):
     """
-    Write each 5-minute average record to PostgreSQL table 'sensor_temperatures'.
+    Write each 5-minute average record to PostgreSQL table 'sensor_readings'.
     """
     conn, cursor = db.get_connection()
     for row in batch_df.collect():
         cursor.execute(
             """
-            INSERT INTO sensor_temperatures (
+            INSERT INTO sensor_readings (
                 sensor_id, window_start, window_end, temperature, humidity
             ) VALUES (%s, %s, %s, %s, %s)
             ON CONFLICT (sensor_id, window_start, window_end) DO UPDATE

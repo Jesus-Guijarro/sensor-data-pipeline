@@ -22,7 +22,7 @@ In addition to temperature data, the system also manages sensor logs, identifyin
 
 The application database, `sensor_data`, is composed of only one table:
 
-- `sensor_temperatures`: table that stores the processed sensor data consumed from the `sensor-data` topic every 15 minutes.  
+- `sensor_readings`: table that stores the processed sensor data consumed from the `sensor-data` topic every 5 minutes.  
 
 <img src="images/entity-relationship-diagram.png" alt="ER Diagram" width="170"/>
 
@@ -137,7 +137,7 @@ Connect to the database:
 
 #### Create the tables:
 ```sql
-CREATE TABLE sensor_temperatures (
+CREATE TABLE sensor_readings (
     sensor_id INT,
     window_start TIMESTAMP,
     window_end TIMESTAMP,
@@ -213,7 +213,7 @@ kafka-topics.sh --create --topic log-data --bootstrap-server localhost:9092 --pa
 ## Sensor
 Run `producer.py` from the terminal with the virtual environment `sensor-env` activated:
 ```sh
-python producer.py
+python -m streaming.producer
 ```
 
 Verify that Kafka is receiving data from the sensors:
@@ -231,13 +231,19 @@ source sensor-venv/bin/activate
 ```
 
 ```sh
-spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 --jars resources/spark-sql-kafka-0-10_2.12-3.0.0.jar sensor_consumer.py
+export PYTHONPATH=$(pwd)
+
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 --jars resources/spark-sql-kafka-0-10_2.12-3.0.0.jar streaming/sensor_consumer.py
 ```
 
-In other terminal:
+## Batch Pipeline
+
 ```sh
-python log_consumer.py
+airflow standalone
 ```
+
+Pass in "simple_auth_manager_passwords.json.generated"
+
 
 If you want to delete the data stored in the `sensor-data` and `log-data` topics:
 ```sh

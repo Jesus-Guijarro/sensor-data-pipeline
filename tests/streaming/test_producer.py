@@ -1,6 +1,6 @@
 import json
 import pytest
-from producer import (
+from streaming.producer import (
     load_sensor_configurations,
     delivery_report,
     produce_one_round,
@@ -21,7 +21,7 @@ class DummyConn:
 
 def test_load_sensor_configurations(monkeypatch):
     # Monkey-patch get_connection() to return our dummy
-    import producer
+    import streaming.producer as producer
     monkeypatch.setattr(
         "producer.get_connection",
         lambda: (DummyConn(), DummyConn().cursor)

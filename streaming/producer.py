@@ -2,7 +2,7 @@ import os
 import time
 import json
 from confluent_kafka import Producer
-from sensor import Sensor
+from .sensor import Sensor
 from database.database import get_connection
 
 # Kafka configuration
