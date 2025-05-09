@@ -22,8 +22,8 @@ def transform_sensor_readings(df: pd.DataFrame) -> list:
         for h in range(24):
             sub = grp[grp.hour == h]
             if not sub.empty:
-                t = round(sub.temperature.mean(), 2)
-                hmd = round(sub.humidity.mean(), 2)
+                t = round(sub.temperature.mean())
+                hmd = round(sub.humidity.mean())
             else:
                 t = None
                 hmd = None
