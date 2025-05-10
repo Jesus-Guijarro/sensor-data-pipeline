@@ -23,7 +23,7 @@ The batch pipeline is orchestrated by Apache Airflow to run on a daily schedule.
 
 **Architecture:** The project architecture is illustrated below, showing how sensor data flows from Kafka through Spark into PostgreSQL and how a batch pipeline ingests and processes sensor data to a MongoDB database.
 
-<img src="images/application-architecture.png" alt="Application architecture" width="450"/>
+<img src="images/application-architecture.png" alt="Application architecture" width="900"/>
 
 
 ## 🛢️ Data Storage
@@ -35,10 +35,9 @@ The pipelines use two databases for storing sensor information and readings:
 - **MongoDB** database (`sensor_data_batch`):
     - **Collections**:
         - `reports` – Stores processed reports based on `sensor_readings` data.
-        
 
-<img src="images/entity-relationship-diagram.png" alt="ER Diagram" width="170"/>
-
+Entity Relationship Diagram for `sensor_data` Database:
+<img src="images/entity-relationship-diagram.png" alt="ER Diagram" width="350"/>      
 
 ## ⚙️Installation and Configuration
 
