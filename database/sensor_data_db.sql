@@ -1,6 +1,8 @@
 
+-- CREATE sensor_data DATABASE
 CREATE DATABASE sensor_data;
 
+-- CREATE sensors TABLE
 CREATE TABLE sensors (
   sensor_id INTEGER PRIMARY KEY,
   city VARCHAR(100) NOT NULL,
@@ -8,6 +10,8 @@ CREATE TABLE sensors (
   diff_temperature INTEGER NOT NULL
 );
 
+-- INSERT DATA IN sensors
+-- Alicante is the city used as the baseline for "diff_temperature"
 INSERT INTO sensors (sensor_id, city, station, diff_temperature) VALUES
   (1,'Valencia','VALENCIA, UPV',-1),
   (2,'Murcia','MURCIA',1),
@@ -30,6 +34,7 @@ INSERT INTO sensors (sensor_id, city, station, diff_temperature) VALUES
   (19,'Villena','VILLENA',-2),
   (20,'Totana', 'TOTANA',-1);
 
+-- CREATE sensors_readings TABLE
 CREATE TABLE sensor_readings(
   sensor_id INT NOT NULL,
   window_start TIMESTAMP NOT NULL,

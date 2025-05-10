@@ -4,7 +4,6 @@ from pyspark.sql.types import StructType, StructField, StringType, IntegerType, 
 
 import database.database as db
 
-# Create the Spark session with application name aligned to overall project
 spark = SparkSession.builder \
     .appName("SensorData") \
     .getOrCreate()
@@ -54,9 +53,15 @@ agg_df = sensor_data_df \
     .dropDuplicates(["sensor_id", "window_start", "window_end"])
 
 
-def write_to_db(batch_df, batch_id):
+def write_to_db(batch_df):
     """
-    Write each 5-minute average record to PostgreSQL table 'sensor_readings'.
+    Function to write each micro-batch of aggregated data into the 
+    'sensor_readings' table.
+
+    Uses UPSERT logic: inserts new records or updates existing ones based on
+    primary key (sensor_id, window_start, window_end).
+
+    :param batch_df: Spark DataFrame containing one micro-batch of aggregated rows
     """
     conn, cursor = db.get_connection()
     for row in batch_df.collect():
@@ -80,11 +85,14 @@ def write_to_db(batch_df, batch_id):
     conn.commit()
     conn.close()
 
-# Write the stream to PostgreSQL every 5 minutes
-query = agg_df.writeStream \
-    .foreachBatch(write_to_db) \
-    .outputMode("update") \
-    .trigger(processingTime="5 minutes") \
-    .start()
+# Configure the streaming query to use write_to_db every 5 minutes
+query = (
+    agg_df.writeStream
+          .foreachBatch(write_to_db)            # Use custom function for each micro-batch
+          .outputMode("update")                 # Only updated aggregates are written
+          .trigger(processingTime="5 minutes")  # Trigger processing interval
+          .start()                              # Start the streaming query
+)
 
+# Await termination of the streaming query (runs indefinitely)
 query.awaitTermination()
