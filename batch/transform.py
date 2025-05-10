@@ -64,14 +64,20 @@ def transform_sensor_readings(df: pd.DataFrame) -> list:
         avg_h = round(grp.humidity.mean())
 
         # Compile hourly averages
-        hourly = [
-            {
-                'hour': int(hour),
-                'temperature': int(subgrp.temperature.mean()),
-                'humidity': int(subgrp.humidity.mean())
-            }
-            for hour, subgrp in grp.groupby('hour')
-        ]
+        hourly = []
+        for h in range(24):
+            sub = grp[grp.hour == h]
+            if not sub.empty:
+                t = round(sub.temperature.mean())
+                hmd = round(sub.humidity.mean())
+            else:
+                t = None
+                hmd = None
+            hourly.append({
+                "hour": h,
+                "temperature": t,
+                "humidity": hmd
+            })
 
         # Append structured report dict
         reports.append({

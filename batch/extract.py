@@ -40,8 +40,8 @@ def extract_sensor_readings(date_str: str) -> pd.DataFrame:
         sr.humidity
     FROM sensor_readings sr
     JOIN sensors s ON s.sensor_id = sr.sensor_id
-    WHERE sr.window_start = %s
-      AND sr.window_start <= %s
+    WHERE sr.window_start >= %s
+      AND sr.window_start < %s
     ORDER BY sr.sensor_id, sr.window_start
     """
 
