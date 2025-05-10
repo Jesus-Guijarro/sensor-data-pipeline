@@ -37,9 +37,9 @@ def test_load_sensor_configurations(monkeypatch):
     configs = producer.load_sensor_configurations()
 
     # It should return the data from fetchall()
-    assert configs == dummy_result, "Should return list of sensor configurations from the database"
+    assert configs == dummy_result
     # The connection and cursor should be closed after function execution
-    assert dummy_conn.closed and dummy_cursor.closed, "Database connection and cursor should be closed"
+    assert dummy_conn.closed and dummy_cursor.closed
 
 def test_produce_one_round_normal(monkeypatch):
     """Test produce_one_round with a normal sensor reading (no anomaly)."""
@@ -66,13 +66,13 @@ def test_produce_one_round_normal(monkeypatch):
     count = producer.produce_one_round(producer_instance, sensors)
 
     # It should produce exactly one message for the one sensor
-    assert count == 1, "Should produce one message for one sensor"
+    assert count == 1
     # Inspect the produced message
     topic, message = produced_messages[0]
     # The message should be sent to the sensor data topic for normal readings
-    assert topic == producer.SENSOR_TOPIC, "Normal readings should be sent to SENSOR_TOPIC"
+    assert topic == producer.SENSOR_TOPIC
     # The message content should exactly match the sensor data dictionary
-    assert message == dummy_data, "Produced message should match the sensor's data output"
+    assert message == dummy_data
 
 def test_produce_one_round_measurement_error(monkeypatch):
     """Test produce_one_round with a sensor measurement error anomaly (anomaly flag set to Measurement_error)."""
@@ -104,11 +104,11 @@ def test_produce_one_round_measurement_error(monkeypatch):
     assert count == 1
     topic, message = produced_messages[0]
     # In case of measurement error, the message should go to the log topic with WARNING level
-    assert topic == producer.LOG_TOPIC, "Measurement errors should be sent to LOG_TOPIC"
-    assert message.get("level") == "WARNING", "Log message level should be WARNING for measurement errors"
-    assert message.get("sensor_id") == sensor_id, "Log message should contain the correct sensor_id"
+    assert topic == producer.LOG_TOPIC
+    assert message.get("level") == "WARNING"
+    assert message.get("sensor_id") == sensor_id
     # The log message text should mention a measurement error for that sensor
-    assert "Measurement error on sensor" in message.get("message", ""), "Log message should describe the measurement error"
+    assert "Measurement error on sensor" in message.get("message", "")
 
 def test_produce_one_round_disconnect(monkeypatch):
     """Test produce_one_round with a sensor disconnect anomaly (temperature is None)."""
@@ -118,7 +118,8 @@ def test_produce_one_round_disconnect(monkeypatch):
         "sensor_id": sensor_id,
         "temperature": None,
         "humidity": None
-        # Note: 'anomaly': 'Disconnect' could be included by Sensor, but produce_one_round uses temperature None to detect disconnect
+        # Note: 'anomaly': 'Disconnect' could be included by Sensor, 
+        # but produce_one_round uses temperature None to detect disconnect
     }
     class DummySensor:
         def generate_sensor_data(self):
@@ -139,8 +140,8 @@ def test_produce_one_round_disconnect(monkeypatch):
     assert count == 1
     topic, message = produced_messages[0]
     # Disconnect events should be sent to the log topic with ERROR level
-    assert topic == producer.LOG_TOPIC, "Disconnect events should be sent to LOG_TOPIC"
-    assert message.get("level") == "ERROR", "Log message level should be ERROR for disconnects"
-    assert message.get("sensor_id") == sensor_id, "Log message should contain the correct sensor_id"
+    assert topic == producer.LOG_TOPIC
+    assert message.get("level") == "ERROR"
+    assert message.get("sensor_id") == sensor_id
     # The log message text should indicate that the sensor was disconnected
-    assert "disconnected" in message.get("message", ""), "Log message should indicate sensor disconnect"
+    assert "disconnected" in message.get("message", "")

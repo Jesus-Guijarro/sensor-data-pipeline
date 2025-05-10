@@ -53,7 +53,7 @@ agg_df = sensor_data_df \
     .dropDuplicates(["sensor_id", "window_start", "window_end"])
 
 
-def write_to_db(batch_df):
+def write_to_db(batch_df, batch_id):
     """
     Function to write each micro-batch of aggregated data into the 
     'sensor_readings' table.

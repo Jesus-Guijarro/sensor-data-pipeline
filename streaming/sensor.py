@@ -11,7 +11,7 @@ class Sensor:
     and an error probability determining random anomalies like measurement errors
     or disconnects.
     """
-    def __init__(self, sensor_id: str, diff_temperature: float = 0.0):
+    def __init__(self, sensor_id, diff_temperature):
         """
         Initialize a Sensor object.
 

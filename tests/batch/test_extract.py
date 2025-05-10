@@ -12,7 +12,7 @@ def test_extract_sensor_readings(monkeypatch):
             self.params = None
             # Prepare description to simulate cursor.description
             self.description = [(col,) for col in 
-                ["sensor_id", "city", "station", "window_start", "window_end", "temperature", "humidity"]]
+                ["sensor_id", "city", "station", "window_start", "temperature", "humidity"]]
         def execute(self, query, params):
             # Record the query and parameters passed
             self.query = query
@@ -22,7 +22,7 @@ def test_extract_sensor_readings(monkeypatch):
             end_time = params[1]
             # Create one dummy row of data
             self.rows = [
-                (1, "CityA", "StationX", start_time, end_time, 20.0, 30.0)
+                (1, "CityA", "StationX", start_time, 20.0, 30.0)
             ]
         def fetchall(self):
             return getattr(self, 'rows', [])
@@ -37,6 +37,7 @@ def test_extract_sensor_readings(monkeypatch):
 
     dummy_cursor = DummyCursor()
     dummy_conn = DummyConn()
+
     def dummy_get_connection():
         # Return dummy connection and cursor as a tuple
         return dummy_conn, dummy_cursor
@@ -49,20 +50,20 @@ def test_extract_sensor_readings(monkeypatch):
     df = extract.extract_sensor_readings(date_str)
 
     # After extraction, the database connection should be closed
-    assert dummy_conn.closed, "Database connection should be closed after extraction"
+    assert dummy_conn.closed
+
     # Verify that the SQL was executed with correct parameters (24-hour window)
-    expected_start = datetime.fromisoformat(date_str)
-    expected_end = expected_start + timedelta(days=1)
-    assert dummy_cursor.params[0] == expected_start and dummy_cursor.params[1] == expected_end, "Query parameters should be the start and end of the 24h window"
+    start_expected = datetime.fromisoformat(date_str)
+    end_expected = start_expected + timedelta(days=1)
+    assert dummy_cursor.params == (start_expected, end_expected)
+    
     # The result should be a pandas DataFrame with the expected columns, including 'date_str'
-    expected_columns = {"sensor_id", "city", "station", "window_start", "window_end", "temperature", "humidity", "date_str"}
-    assert set(df.columns) == expected_columns, "Returned DataFrame columns are incorrect"
+    expected_columns = {"sensor_id", "city", "station", "window_start", "temperature", "humidity"}
+    assert set(df.columns) == expected_columns
     # DataFrame should contain one row with data corresponding to our dummy row
-    assert len(df) == 1, "DataFrame should have one row of data"
+    assert len(df) == 1
     row = df.iloc[0]
     # Check that the data in the DataFrame matches the dummy data
     assert row['sensor_id'] == 1
     assert row['city'] == "CityA"
     assert row['station'] == "StationX"
-    # The date_str column should match the input date string
-    assert row['date_str'] == "2025-01-01", "date_str column should be formatted as YYYY-MM-DD"

@@ -30,7 +30,6 @@ with DAG(
     default_args=default_args,
     description='Sensors batch pipeline',
     schedule='1 0 * * *',
-    start_date=timezone.datetime(2025, 5, 8),  # Pipeline start date
     catchup=False,                             # Skip backfill of past intervals
     tags=['etl', 'sensors'],                   # Tags for categorization
 ) as dag:

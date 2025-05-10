@@ -347,7 +347,7 @@ kafka-topics.sh --create --topic log-data --bootstrap-server localhost:9092 --pa
 
 ```sh
 # Terminal 3
-source sensor-data-pipeline/sensor-venv/bin/activate
+source sensor-venv/bin/activate
 python -m streaming.producer
 ```
 This will start simulating sensors and sending messages to the Kafka topics. Each sensor will emit a reading every second (and send a log message to `log-data` if an anomaly occurs).
@@ -409,6 +409,13 @@ The test suite is designed to run without requiring live Kafka, PostgreSQL, or M
 - Kafka producer is simulated so that no actual Kafka service is needed.
 
 This allows the tests to focus on the logic (e.g., data generation, transformation, and aggregation) and ensures they run quickly and reliably in any environment.
+
+To test unit tests independently:
+```sh
+python3 -m pytest tests/streaming/test_sensor.py -q
+
+python3 -m pytest tests/batch/test_transform.py -q
+```
 
 ## 🔍Extra
 

@@ -51,9 +51,10 @@ def extract_sensor_readings(date_str: str) -> pd.DataFrame:
     rows = cursor.fetchall()
     cols = [desc[0] for desc in cursor.description]
 
-    conn.close()
-
     # Construct DataFrameg
     df = pd.DataFrame(rows, columns=cols)
+
+    cursor.close()
+    conn.close()
 
     return df

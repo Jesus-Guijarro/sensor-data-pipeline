@@ -37,14 +37,14 @@ def test_load_reports(monkeypatch):
             'sensor_id': '1',
             'city': 'CityA',
             'station': 'S1',
-            'date': '2025-01-01',
+            'date': '2025-05-08',
             'data': {'value': 100}
         },
         {
             'sensor_id': 2,
             'city': 'CityB',
             'station': 'S2',
-            'date': '2025-01-02',
+            'date': '2025-05-08',
             'data': {'value': 200}
         }
     ]
@@ -52,32 +52,32 @@ def test_load_reports(monkeypatch):
     load.load_reports(reports)
 
     # The dummy MongoClient should have been created with default URI (since env var is not set)
-    assert dummy_client_instance is not None, "MongoClient should be instantiated"
-    assert dummy_client_instance.uri == 'mongodb://localhost:27017', "Should use default Mongo URI if none is set in env"
+    assert dummy_client_instance is not None
+    assert dummy_client_instance.uri == 'mongodb://localhost:27017'
     # After function execution, the client should be closed
-    assert dummy_client_instance.closed, "MongoClient should be closed after loading reports"
+    assert dummy_client_instance.closed
 
     # Verify that replace_one was called for each report with correct filter and document
     calls = dummy_client_instance.sensor_data_batch.reports.replace_calls
-    assert len(calls) == len(reports), "replace_one should be called once per report"
+    assert len(calls) == len(reports)
     # Check details of the first call
-    filter1, doc1, upsert1 = calls[0]
+    filter, doc, upsert = calls[0]
     import datetime
     expected_date1 = datetime.datetime.strptime(reports[0]['date'], '%Y-%m-%d')
     # Filter should have sensor_id as int and date as datetime
-    assert filter1 == {'sensor_id': 1, 'date': expected_date1}, "Filter criteria for first report is incorrect"
+    assert filter == {'sensor_id': 1, 'date': expected_date1}
     # Document should contain converted sensor_id (int) and date (datetime), and match other fields
-    assert doc1['sensor_id'] == 1
-    assert doc1['city'] == 'CityA'
-    assert doc1['station'] == 'S1'
-    assert doc1['date'] == expected_date1
-    assert doc1['data'] == reports[0]['data']
+    assert doc['sensor_id'] == 1
+    assert doc['city'] == 'CityA'
+    assert doc['station'] == 'S1'
+    assert doc['date'] == expected_date1
+    assert doc['data'] == reports[0]['data']
     # Upsert should be True to insert if not present
-    assert upsert1 is True
+    assert upsert is True
     # Check details of the second call similarly
     filter2, doc2, upsert2 = calls[1]
     expected_date2 = datetime.datetime.strptime(reports[1]['date'], '%Y-%m-%d')
-    assert filter2 == {'sensor_id': 2, 'date': expected_date2}, "Filter criteria for second report is incorrect"
+    assert filter2 == {'sensor_id': 2, 'date': expected_date2}
     assert doc2['sensor_id'] == 2
     assert doc2['city'] == 'CityB'
     assert doc2['station'] == 'S2'
