@@ -279,7 +279,7 @@ Replace the placeholders with your actual Postgres username and password.
 ### 8. Final Project Structure
 
 ```
-📦 sensor-data-pipeline
+📂 sensor-data-pipeline
 ├── 📂 airflow
 │   └── 📂 dags
 │       └── 🐍 sensor_data_pipeline_dag.py
@@ -293,11 +293,12 @@ Replace the placeholders with your actual Postgres username and password.
 │   ├── 🐍 database.py
 │   └── 🛢️ sensor_data_db.sql
 ├── 📂 images
-│   ├── 📄 application-architecture.png
-│   └── 📄 entity-relationship-diagram.png
+│   ├── 🖼️ application-architecture.png
+│   ├── 🖼️ entity-relationship-diagram.png
+│   └── 🖼️ logs-data-dashboard.png
 ├── 📂 resources
-│   ├── 📄 spark-sql-kafka-0-10_2.12-3.0.0.jar
-│   └── 📄 start_kafka.sh
+│   ├── 📦 spark-sql-kafka-0-10_2.12-3.0.0.jar
+│   └── 📜 start_kafka.sh
 ├── 📂 streaming
 │   ├── 🐍 __init__.py
 │   ├── 🐍 producer.py
