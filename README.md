@@ -1,7 +1,7 @@
 # SENSOR DATA PIPELINE
 
 ## 📖Introduction 
-This project simulates IoT sensor data and processes it through two pipelines: a streaming pipeline using Apache Kafka and Apache Spark for real-time processing, and a batch pipeline using Apache Airflow for scheduled processing and MongoDB for long-term storage of results. The goal is to demonstrate the integration of these technologies in a cohesive data pipeline.
+This project simulates sensor data and processes it through two pipelines: a streaming pipeline using Apache Kafka and Apache Spark for real-time processing, and a batch pipeline using Apache Airflow for scheduled processing. The goal is to demonstrate the integration of these technologies in a cohesive data pipeline.
 
 ## ⚡ Streaming Pipeline
 In the streaming pipeline, virtual sensors generate temperature and humidity readings every second and publish them to Kafka topics. A Spark Structured Streaming job consumes this data in near real-time (e.g. in short micro-batches) and stores the sensor readings into a PostgreSQL database. The system also handles sensor event logs (such as disconnections or measurement anomalies) via a separate Kafka topic (`log-data`) for monitoring purposes. All incoming sensor data is saved in the sensor_data PostgreSQL database, which contains a time-series table for readings and a data table for sensor info. Architecture: The streaming pipeline architecture is illustrated below, showing how sensor data flows from Kafka through Spark into PostgreSQL.
