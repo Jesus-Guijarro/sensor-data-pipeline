@@ -36,8 +36,10 @@ The pipelines use two databases for storing sensor information and readings:
     - **Collections**:
         - `reports` – Stores processed reports based on `sensor_readings` data.
 
-Entity Relationship Diagram for `sensor_data` Database:
+Entity Relationship Diagram for `sensor_data` database:
+
 <img src="images/entity-relationship-diagram.png" alt="ER Diagram" width="350"/>      
+
 
 ## ⚙️Installation and Configuration
 
