@@ -164,7 +164,7 @@ airflow standalone
 
 After a few moments, Airflow will create an admin user and display the login credentials. The web UI will be available at **http://localhost:8080** with username **admin** and the generated password (find it in the console output or in the file `airflow/standalone_admin_password.json.generated`).
 
-## 5. Install and Configure MongoDB
+### 5. Install and Configure MongoDB
 If MongoDB is not already installed, follow these steps (Linux):
 ```sh
 # Import MongoDB public GPG key
