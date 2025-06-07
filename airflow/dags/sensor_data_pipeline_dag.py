@@ -8,8 +8,8 @@ Defines an Airflow DAG that orchestrates daily ETL tasks:
 """
 from airflow import DAG
 from airflow.decorators import task
-from airflow.utils import timezone
 from datetime import timedelta
+import pendulum
 
 # Import ETL functions from batch modules
 from batch.extract import extract_sensor_readings
@@ -26,9 +26,10 @@ default_args = {
 
 # Define the DAG with a daily schedule at 00:01 UTC, no backfill
 with DAG(
-    dag_id='sensor_batch_pipeline_dag',
+    dag_id='sensor_batch_pipeline',
     default_args=default_args,
     description='Sensors batch pipeline',
+    start_date=pendulum.datetime(2025, 1, 1, tz="Europe/Madrid"),
     schedule='1 0 * * *',
     catchup=False,                             # Skip backfill of past intervals
     tags=['etl', 'sensors'],                   # Tags for categorization

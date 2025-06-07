@@ -4,6 +4,6 @@ airflow.cfg
 airflow.db
 airflow/logs
 simple_auth_manager_passwords.json.generated
-
+artifacts/
 .pytest*
 __pycache__

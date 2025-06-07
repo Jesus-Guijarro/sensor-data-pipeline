@@ -96,8 +96,8 @@ source ~/.bashrc
 
 **Spark**: Download and install Apache Spark:
 ```sh
-wget https://dlcdn.apache.org/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz
-tar -xzf spark-3.5.1-bin-hadoop3.tgz && mv spark-3.5.1-bin-hadoop3 spark && sudo mv spark /opt && rm spark-3.5.1-bin-hadoop3.tgz
+wget https://dlcdn.apache.org/spark/spark-4.0.0/spark-4.0.0-bin-hadoop3.tgz
+tar -xzf spark-4.0.0-bin-hadoop3.tgz && mv spark-4.0.0-bin-hadoop3 spark && sudo mv spark /opt && rm spark-4.0.0-bin-hadoop3.tgz
 ```
 
 Configure Spark environment variables in ~/.bashrc:
@@ -109,7 +109,8 @@ Add the following:
 ```sh
 # Spark
 export SPARK_HOME=/opt/spark
-export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+export PYTHONPATH=$SPARK_HOME/python:$PYTHONPATH
+export PATH=$SPARK_HOME/bin:$PATH
 ```
 
 Save and reload:
@@ -117,14 +118,14 @@ Save and reload:
 source ~/.bashrc
 ```
 
-Verify Spark is working:
+Verify Apache Spark is working:
 ```sh
 spark-shell
 ```
 
 Download the Spark-Kafka connector JAR (to allow Spark Streaming to connect to Kafka):
 ```sh
-wget https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.0.0/spark-sql-kafka-0-10_2.12-3.0.0.jar
+wget https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.13/4.0.0/spark-sql-kafka-0-10_2.13-4.0.0.jar
 ```
 *(This saves the connector JAR into the resources/ directory.)*
 
@@ -139,7 +140,6 @@ Add the following lines to ~/.bashrc (replace /path/to/sensor-data-pipeline with
 ```sh
 # Airflow
 export AIRFLOW_HOME=/path/to/sensor-data-pipeline/airflow
-export PYTHONPATH=/path/to/sensor-data-pipeline
 ```
 
 Save and run:
@@ -350,6 +350,7 @@ kafka-topics.sh --create --topic log-data --bootstrap-server localhost:9092 --pa
 ```sh
 # Terminal 3
 source sensor-venv/bin/activate
+
 python -m streaming.producer
 ```
 This will start simulating sensors and sending messages to the Kafka topics. Each sensor will emit a reading every second (and send a log message to `log-data` if an anomaly occurs).
@@ -365,7 +366,7 @@ These commands will print the sensor readings and log events to your console. To
 
 5. **Start the Spark streaming consumer**: in a new terminal, activate the virtual environment (if not already active) and run the Spark streaming job to process data:
 ```sh
-# Terminal 4
+# Terminal 5
 source sensor-venv/bin/activate
 
 export PYTHONPATH=$(pwd)
@@ -392,9 +393,14 @@ The Airflow web UI should be available at **http://localhost:8080**. Log in with
     - When the DAG runs, it will execute three tasks in order: **extract** (retrieve data from PostgreSQL), **transform** (generate the daily reports), and **load** (insert the reports into MongoDB).
     - You can monitor the progress in the Airflow UI.
 
-3. **Verify results in MongoDB**: after the DAG completes successfully, you can check the MongoDB collection for new data. Open the Mongo shell (mongosh) and run:
+3. **Verify results in MongoDB**: after the DAG completes successfully, you can check the MongoDB collection for new data. Open the Mongo shell (mongosh):
+```sh
+mongosh
+```
+
+MongoDB Commands:
 ```js
-use sensor_data
+use sensor_data_batch
 
 db.reports.find()
 ```
