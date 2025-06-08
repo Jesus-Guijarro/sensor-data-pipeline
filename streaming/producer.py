@@ -12,7 +12,6 @@ BOOTSTRAP_SERVERS = os.getenv('KAFKA_BOOTSTRAP_SERVERS', 'localhost:9092')
 SENSOR_TOPIC = 'sensor-data'
 LOG_TOPIC = 'log-data'
 
-
 def delivery_report(err, msg):
     """
     Callback to report the delivery status of Kafka messages.
@@ -126,5 +125,4 @@ def main():
 
 
 if __name__ == '__main__':
-    # Entry point guarded for script execution
     main()

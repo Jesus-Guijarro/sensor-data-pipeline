@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from database.database import get_connection
 
-def extract_sensor_readings(date_str: str) -> pd.DataFrame:
+def extract_sensor_readings(date_str: str):
     """
     Retrieve sensor readings for a 24-hour period starting at the given ISO date.
 

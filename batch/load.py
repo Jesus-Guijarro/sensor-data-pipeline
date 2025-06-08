@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from pymongo import MongoClient
 
-def load_reports(reports: list) -> None:
+def load_reports(reports: list):
     """
     Upsert a list of sensor report dictionaries into MongoDB.
 

@@ -1,6 +1,6 @@
 import pandas as pd
 
-def transform_sensor_readings(df: pd.DataFrame) -> list:
+def transform_sensor_readings(df: pd.DataFrame):
     """
     Transform raw sensor readings into a list of report dictionaries.
 

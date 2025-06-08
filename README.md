@@ -371,7 +371,7 @@ source sensor-venv/bin/activate
 
 export PYTHONPATH=$(pwd)
 
-spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.0.0 --jars resources/spark-sql-kafka-0-10_2.12-3.0.0.jar streaming/sensor_consumer.py
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.13:4.0.0 --jars resources/spark-sql-kafka-0-10_2.13-4.0.0.jar streaming/sensor_consumer.py
 ```
 This will launch the Spark application that reads from the `sensor-data` topic, performs the streaming computation, and writes results into the PostgreSQL database (updating the `sensor_readings table). Keep this process running as long as you want to collect data.
 
@@ -427,7 +427,7 @@ python3 -m pytest tests/batch/test_transform.py -q
 
 ## 🔍Extra
 
-- `spark-sql-kafka-0-10_2.12-3.0.0.jar`: this is the Spark-Kafka connector JAR that enables Spark Structured Streaming to read from and write to Kafka. It must be present when running the Spark streaming job (as included in the `spark-submit` command).
+- `spark-sql-kafka-0-10_2.13-4.0.0.jar`: this is the Spark-Kafka connector JAR that enables Spark Structured Streaming to read from and write to Kafka. It must be present when running the Spark streaming job (as included in the `spark-submit` command).
 - `start_kafka.sh`: a convenience script to quickly set up the Kafka environment. It starts Zookeeper and the Kafka broker, and then creates the Kafka topics. You can use this script to avoid manually running the individual Kafka commands.
     -  Before you run it, make it executable:
         ```sh

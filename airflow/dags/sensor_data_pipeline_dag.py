@@ -36,7 +36,7 @@ with DAG(
 ) as dag:
 
     @task()
-    def extract(date_str: str) -> str:
+    def extract(date_str: str):
         """
         Extract task: retrieve sensor readings for the given date.
 
@@ -50,7 +50,7 @@ with DAG(
         return df.to_json(date_format='iso', orient='split')
 
     @task()
-    def transform(df_json: str) -> list:
+    def transform(df_json: str):
         """
         Transform task: convert raw JSON data into structured report dictionaries.
 
@@ -66,7 +66,7 @@ with DAG(
         return reports
 
     @task()
-    def load(reports: list) -> None:
+    def load(reports: list):
         """
         Load task: upsert report documents into MongoDB.
 
