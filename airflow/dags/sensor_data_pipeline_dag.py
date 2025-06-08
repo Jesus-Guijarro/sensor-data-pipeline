@@ -80,6 +80,6 @@ with DAG(
         load_reports(reports)
 
     # Define task dependencies: extract >> transform >> load
-    raw_data = extract(date_str="{{ (data_interval_end - macros.timedelta(days=1)) | ds }}")
+    raw_data = extract(date_str='{{ macros.ds_add(ds, -1) }}')
     processed_reports = transform(raw_data)
     load(processed_reports)

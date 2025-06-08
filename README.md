@@ -349,6 +349,7 @@ kafka-topics.sh --create --topic log-data --bootstrap-server localhost:9092 --pa
 
 ```sh
 # Terminal 3
+cd sensor-data-pipeline
 source sensor-venv/bin/activate
 
 python -m streaming.producer
@@ -367,6 +368,7 @@ These commands will print the sensor readings and log events to your console. To
 5. **Start the Spark streaming consumer**: in a new terminal, activate the virtual environment (if not already active) and run the Spark streaming job to process data:
 ```sh
 # Terminal 5
+cd sensor-data-pipeline
 source sensor-venv/bin/activate
 
 export PYTHONPATH=$(pwd)
@@ -385,6 +387,10 @@ kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic log-data
 ### Running the Batch Pipeline (Daily ETL)
 1. **Ensure Airflow is running**: if you haven't already started Airflow, make sure the Airflow scheduler and webserver are running:
 ```sh
+# Terminal 6
+cd sensor-data-pipeline
+source sensor-venv/bin/activate
+
 airflow standalone
 ```
 The Airflow web UI should be available at **http://localhost:8080**. Log in with the admin credentials you obtained during installation.
@@ -395,6 +401,8 @@ The Airflow web UI should be available at **http://localhost:8080**. Log in with
 
 3. **Verify results in MongoDB**: after the DAG completes successfully, you can check the MongoDB collection for new data. Open the Mongo shell (mongosh):
 ```sh
+# Terminal 6
+
 mongosh
 ```
 

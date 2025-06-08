@@ -9,3 +9,5 @@ pymongo
 apache-airflow
 apache-airflow-providers-mongo
 pendulum
+plotly
+ipywidgets
