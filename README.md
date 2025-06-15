@@ -7,9 +7,9 @@ This project simulates sensor data and processes it through two pipelines: a str
 In the streaming pipeline, virtual sensors generate temperature and humidity readings every second and publish them to Kafka topics. A Spark Structured Streaming job consumes this data in near real-time (e.g. in short micro-batches) and stores the sensor readings into a PostgreSQL database. The system also handles sensor event logs (such as disconnections or measurement anomalies) via a separate Kafka topic (`log-data`) for monitoring purposes. All incoming sensor data is saved in the sensor_data PostgreSQL database, which contains a time-series table for readings and a data table for sensor info. Architecture: The streaming pipeline architecture is illustrated below, showing how sensor data flows from Kafka through Spark into PostgreSQL.
 
 ### Components
-- `streaming/sensor.py` – Defines the `Sensor` class used by the producer. It simulates realistic sensor behavior, generating normal readings and injecting occasional anomalies (e.g. a disconnection or a faulty measurement).
-- `streaming/producer.py` – Simulates multiple sensors and continuously publishes their temperature/humidity data to Kafka topics (`sensor-data` for sensor readings, and `log-data` for any warning/error logs).
-- `streaming/sensor_consumer.py` – Spark Structured Streaming application that consumes messages from the `sensor-data` Kafka topic. It performs real-time processing (e.g. basic filtering or windowing) and writes the sensor readings into the PostgreSQL database. Each record in the database includes sensor ID, timestamp, temperature, and humidity.
+- `streaming/sensor.py`: defines the `Sensor` class used by the producer. It simulates realistic sensor behavior, generating normal readings and injecting occasional anomalies (e.g. a disconnection or a faulty measurement).
+- `streaming/producer.py`: simulates multiple sensors and continuously publishes their temperature/humidity data to Kafka topics (`sensor-data` for sensor readings, and `log-data` for any warning/error logs).
+- `streaming/sensor_consumer.py`: Spark Structured Streaming application that consumes messages from the `sensor-data` Kafka topic. It performs real-time processing (e.g. basic filtering or windowing) and writes the sensor readings into the PostgreSQL database. Each record in the database includes sensor ID, timestamp, temperature, and humidity.
 
 
 ## 📦 Batch Pipeline
@@ -21,7 +21,7 @@ The batch pipeline is orchestrated by Apache Airflow to run on a daily schedule.
 - `batch/load.py` – Loads the transformed reports into MongoDB. It connects to the MongoDB instance (default `localhost:27017`) and upserts each report into the `sensor_data_batch` database's `reports` collection. Each report document is uniquely identified by a combination of sensor_id and date.
 - `airflow/dags/sensor_data_pipeline_dag.py` (Airflow DAG) – Defines the workflow for the batch pipeline in Airflow. This DAG schedules the daily ETL job and orchestrates the execution of extract, transform, and load tasks (using the above modules). It ensures the tasks run in order and handles any scheduling logic (such as catching up missed intervals or setting execution dates).
 
-**Architecture:** The project architecture is illustrated below, showing how sensor data flows from Kafka through Spark into PostgreSQL and how a batch pipeline ingests and processes sensor data to a MongoDB database.
+**Architecture:** the project architecture is illustrated below, showing how sensor data flows from Kafka through Spark into PostgreSQL and how a batch pipeline ingests and processes sensor data to a MongoDB database.
 
 <img src="images/application-architecture.png" alt="Application architecture" width="900"/>
 
@@ -30,11 +30,11 @@ The batch pipeline is orchestrated by Apache Airflow to run on a daily schedule.
 The pipelines use two databases for storing sensor information and readings:
 - **PostgreSQL** database (`sensor_data`):
     - **Tables**:
-        - `sensors` – Data for each sensor (e.g., `sensor_id`, `city`, `station`, and a temperature offset calibration `diff_temperature`).
-        - `sensor_readings` – Table that stores raw or aggregated sensor readings (temperature, humidity) along with their timestamp (and optionally a window-end timestamp for interval-based aggregation).
+        - `sensors`: data for each sensor (e.g., `sensor_id`, `city`, `station`, and a temperature offset calibration `diff_temperature`).
+        - `sensor_readings`: table that stores raw or aggregated sensor readings (temperature, humidity) along with their timestamp (and optionally a window-end timestamp for interval-based aggregation).
 - **MongoDB** database (`sensor_data_batch`):
     - **Collections**:
-        - `reports` – Stores processed reports based on `sensor_readings` data.
+        - `reports`: Stores processed reports based on `sensor_readings` data.
 
 Entity Relationship Diagram for `sensor_data` database:
 
@@ -69,7 +69,7 @@ pip install -r requirements.txt
 
 ### 3. Install and configure Kafka and Spark
 
-**Kafka**: Download and install Apache Kafka (adjust the version if needed):
+**Kafka**: download and install Apache Kafka (adjust the version if needed):
 ```sh
 wget https://downloads.apache.org/kafka/3.7.0/kafka_2.13-3.7.0.tgz
 
@@ -94,7 +94,7 @@ Save and close the file, then apply the changes:
 source ~/.bashrc
 ```
 
-**Spark**: Download and install Apache Spark:
+**Spark**: download and install Apache Spark:
 ```sh
 wget https://dlcdn.apache.org/spark/spark-4.0.0/spark-4.0.0-bin-hadoop3.tgz
 tar -xzf spark-4.0.0-bin-hadoop3.tgz && mv spark-4.0.0-bin-hadoop3 spark && sudo mv spark /opt && rm spark-4.0.0-bin-hadoop3.tgz
@@ -221,7 +221,7 @@ CREATE TABLE sensors (
 );
 
 -- INSERT DATA IN sensors
--- diff_temperature: Offset in °C that adjusts the measured temperature per sensor, using Alicante as the baseline city.
+-- diff_temperature: offset in °C that adjusts the measured temperature per sensor, using Alicante as the baseline city.
 INSERT INTO sensors (sensor_id, city, station, diff_temperature) VALUES
   (1,'Valencia','VALENCIA, UPV',-1),
   (2,'Murcia','MURCIA',1),
